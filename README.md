@@ -44,18 +44,18 @@ Inverter Peimar, Shelly EM and Raspberry are connected to wifi network of my hou
 * Restart service and launch influxdb client with following command: ``influx``
 * Create databases and users with grants:
 
-``CREATE DATABASE peimar``  
-``CREATE DATABASE telegraf``  
+	``CREATE DATABASE peimar``  
+	``CREATE DATABASE telegraf``  
   
-``CREATE USER admin WITH PASSWORD p4ssw0rd WITH ALL PRIVILEGES``  
-``CREATE USER peimar WITH PASSWORD p31m4r``  
-``CREATE USER telegraf WITH PASSWORD t3l3gr4f``  
+	``CREATE USER admin WITH PASSWORD p4ssw0rd WITH ALL PRIVILEGES``  
+	``CREATE USER peimar WITH PASSWORD p31m4r``  
+	``CREATE USER telegraf WITH PASSWORD t3l3gr4f``  
   
-``GRANT ALL ON peimar TO peimar``  
-``GRANT ALL ON telegraf TO telegraf``  
+	``GRANT ALL ON peimar TO peimar``  
+	``GRANT ALL ON telegraf TO telegraf``  
   
-``ALTER RETENTION POLICY "one_month" ON "telegraf" DURATION 4w REPLICATION 1 DEFAULT``  
-``ALTER RETENTION POLICY "ten_years" ON "peimar" DURATION 520w REPLICATION 1 DEFAULT``  
+	``ALTER RETENTION POLICY "one_month" ON "telegraf" DURATION 4w REPLICATION 1 DEFAULT``  
+	``ALTER RETENTION POLICY "ten_years" ON "peimar" DURATION 520w REPLICATION 1 DEFAULT``  
   
 * Edit file **influxdb.conf** and enable authetication in [http] section: ``auth-enabled = true``
 * Restart InfluxDB service: ``sudo systemctl restart influxdb.service``
@@ -87,12 +87,12 @@ The database ***telegraf*** contains the metrics of Raspberry Pi and weather for
   
 * Change the IPs of the Inverter and Shelly EM to those of your network in the **config.py** files:
   
-**/usr/lib/python3.7/peimar/inverter/config.py**  
-**/usr/lib/python3.7/shelly/emeter/config.py**  
+	**/usr/lib/python3.7/peimar/inverter/config.py**  
+	**/usr/lib/python3.7/shelly/emeter/config.py**  
   
 * Change timezone of your infrastructure in **config.py** file of peimar daemon:
   
-``timezone = pytz.timezone("Europe/Rome")``  
+	``timezone = pytz.timezone("Europe/Rome")``  
   
 * Reboot system.
   
@@ -106,11 +106,11 @@ For the management of daemons:
 * Copy image file **how_solar_power_works.png** from repository folder **grafana/images** to **/usr/share/grafana/public/img** path of your installation.
 * Install Grafana plugins **grafana-clock-panel** and **larona-epict-panel** with following command:
   
-``sudo grafana-cli plugins install grafana-clock-panel``  
-``sudo grafana-cli plugins install larona-epict-panel``  
-``cd /var/lib/grafana/plugins/``  
-``sudo chown -R grafana:grafana grafana-clock-panel``  
-``sudo chown -R grafana:grafana larona-epict-panel``  
+	``sudo grafana-cli plugins install grafana-clock-panel``  
+	``sudo grafana-cli plugins install larona-epict-panel``  
+	``cd /var/lib/grafana/plugins/``  
+	``sudo chown -R grafana:grafana grafana-clock-panel``  
+	``sudo chown -R grafana:grafana larona-epict-panel``  
   
 * Restart Grafana service: ``sudo systemctl restart grafana-server.service``
 * Import all dashboards from repository folder **grafana/dashboards**.

@@ -82,8 +82,8 @@ The database ***telegraf*** contains the metrics of Raspberry Pi and weather for
 * Create folder **shellyem** in **/var/log** path of your installation (owner: pi, group: pi).
 * Enable all daemons at boot system:
   
-``sudo update-rc.d peimar-inverter defaults``  
-``sudo update-rc.d shelly-em defaults``  
+	``sudo update-rc.d peimar-inverter defaults``  
+	``sudo update-rc.d shelly-em defaults``  
   
 * Change the IPs of the Inverter and Shelly EM to those of your network in the **config.py** files:
   

@@ -1,0 +1,153 @@
+#!/bin/bash
+
+# chkconfig: 2345 99 05
+# description: Shelly Energy Meter Collector
+
+### BEGIN INIT INFO
+# Provides:          shelly-em
+# Required-Start:    $network
+# Required-Stop:     $remote_fs $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Start and stop Shelly EM Collector as service
+# Author: Danilo Cilento <danilo.cilento@gmail.com>
+### END INIT INFO
+
+
+# Variables
+PGREP=/usr/bin/pgrep
+PYTHON_DAEMON="/usr/bin/python3 -m shelly --daemon"
+
+# Start collector
+start() {
+    echo "Starting Shelly EM Collector..."
+    # Verify if service is running
+    PID=$($PGREP -x -f "$PYTHON_DAEMON" 2> /dev/null)
+    if [[ ! -z $PID ]]
+    then
+        echo "The service is already running with PID ${PID}"
+    else
+        # Run multi-thread daemon
+	$PYTHON_DAEMON > /dev/null 2>&1 & disown
+        # Sleep time before service verification
+        sleep 15
+        # Verify if service is running
+        PID=$($PGREP -x -f "$PYTHON_DAEMON" 2> /dev/null)
+        if [[ ! -z $PID ]]
+        then
+            echo "Service was successfully started"
+        else
+            echo "Failed to start service"
+        fi
+    fi
+    echo
+}
+
+# Stop collector
+stop() {
+    echo "Stopping Shelly EM Collector..."
+    # Verify if service is running
+    PID=$($PGREP -x -f "$PYTHON_DAEMON" 2> /dev/null)
+    if [[ ! -z $PID ]]
+    then
+    	echo "Graceful shutdown of threads can take up to 2 minutes. Waiting..."
+
+        # Graceful shutdown multi-thread daemon
+        kill -15 $PID
+
+	# Waiting all threads shutdown
+	COUNTER=1
+	while [ $COUNTER -le 12 ]; do
+            # Sleep time before service verification
+            sleep 10
+	    echo ...
+            # Verify if service is running
+            PID=$($PGREP -x -f "$PYTHON_DAEMON" 2> /dev/null)
+            if [[ ! -z $PID ]]
+            then
+		let COUNTER=COUNTER+1
+	    else
+		COUNTER=13
+            fi
+	done
+
+        # Verify if service is running
+        PID=$($PGREP -x -f "$PYTHON_DAEMON" 2> /dev/null)
+        if [[ ! -z $PID ]]
+        then
+            echo "Failed to stop service (try to use forcekill option)"
+        else
+            echo "Service was successfully stopped"
+        fi
+    else
+        echo "The service is already stopped"
+    fi
+    echo
+}
+
+# Kill collector
+forcekill() {
+    echo "Force Kill Shelly EM Collector..."
+    # Verify if service is running
+    PID=$($PGREP -x -f "$PYTHON_DAEMON" 2> /dev/null)
+    if [[ ! -z $PID ]]
+    then
+        # Force kill multi-thread daemon
+        kill -9 $PID
+        # Sleep time before service verification
+        sleep 10
+        # Verify if service is running
+        PID=$($PGREP -x -f "$PYTHON_DAEMON" 2> /dev/null)
+        if [[ ! -z $PID ]]
+        then
+            echo "Failed to kill service"
+        else
+            echo "Service was successfully killed"
+        fi
+    else
+        echo "The service is already stopped"
+    fi
+    echo
+}
+
+# Verify status of collector
+status() {
+    echo "Checking status of Shelly EM Collector..."
+    # Verify if service is running
+    PID=$($PGREP -x -f "$PYTHON_DAEMON" 2> /dev/null)
+    if [[ ! -z $PID ]]
+    then
+        echo "Service is running with PID ${PID}"
+    else
+        echo "Service is stopped"
+    fi
+    echo
+}
+
+# Main logic
+case "$1" in
+    start)
+        start
+        exit 0
+        ;;
+    stop)
+        stop
+        exit 0
+        ;;
+    forcekill)
+	forcekill
+	exit 0
+	;;
+    status)
+        status
+        exit 0
+        ;;
+    restart|reload)
+        stop
+        start
+	exit 0
+        ;;
+  *)
+    echo $"Usage: $0 {start|stop|forcekill|status|restart|reload}"
+    exit 1
+esac

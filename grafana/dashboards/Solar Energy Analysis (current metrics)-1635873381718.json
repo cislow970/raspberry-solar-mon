@@ -1,0 +1,817 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "description": "Power home's consumed vs Photovoltaic Production",
+  "editable": true,
+  "gnetId": null,
+  "graphTooltip": 1,
+  "id": 11,
+  "iteration": 1635873370084,
+  "links": [],
+  "panels": [
+    {
+      "datasource": "${datasource}",
+      "description": "Blue: Home's Power Consumed<br/>\nOrange: Solar Power Produced<br/>\nGreen/Red: Energy balance",
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 0
+      },
+      "id": 7,
+      "options": {
+        "bgURL": "http://192.168.1.5:3000/public/img/how_solar_power_works.png",
+        "boxes": [
+          {
+            "angle": 0,
+            "backgroundColor": "#5794F2",
+            "blinkHigh": false,
+            "blinkLow": false,
+            "color": "#1F60C4",
+            "colorHigh": "#C4162A",
+            "colorLow": "#37872D",
+            "colorMedium": "#E0B400",
+            "decimal": "2",
+            "fontSize": "14",
+            "hasBackground": false,
+            "hasOrb": true,
+            "isUsingThresholds": false,
+            "orbHideText": false,
+            "orbLocation": "Bottom",
+            "orbSize": 10,
+            "prefix": "",
+            "prefixSize": 10,
+            "serie": "Home's Power Consumed",
+            "suffix": " W",
+            "suffixSize": "14",
+            "text": "N/A",
+            "thresholds": "1000,2000",
+            "url": "",
+            "xpos": "340",
+            "ypos": "70"
+          },
+          {
+            "angle": "0",
+            "backgroundColor": "#5794F2",
+            "blinkHigh": false,
+            "blinkLow": false,
+            "color": "#FA6400",
+            "colorHigh": "#37872D",
+            "colorLow": "#C4162A",
+            "colorMedium": "#E0B400",
+            "decimal": "2",
+            "fontSize": "14",
+            "hasBackground": false,
+            "hasOrb": true,
+            "isUsingThresholds": false,
+            "orbHideText": false,
+            "orbLocation": "Bottom",
+            "orbSize": 10,
+            "prefix": "",
+            "prefixSize": 10,
+            "serie": "Solar Power Produced",
+            "suffix": " W",
+            "suffixSize": "14",
+            "text": "N/A",
+            "thresholds": "1000,2000",
+            "url": "",
+            "xpos": "135",
+            "ypos": "70"
+          },
+          {
+            "angle": "0",
+            "backgroundColor": "#5794F2",
+            "blinkHigh": false,
+            "blinkLow": false,
+            "color": "#1F60C4",
+            "colorHigh": "#37872D",
+            "colorLow": "#C4162A",
+            "colorMedium": "#37872D",
+            "decimal": "2",
+            "fontSize": "14",
+            "hasBackground": false,
+            "hasOrb": true,
+            "isUsingThresholds": true,
+            "orbHideText": false,
+            "orbLocation": "Bottom",
+            "orbSize": 10,
+            "prefix": "",
+            "prefixSize": 10,
+            "serie": "Energy balance",
+            "suffix": " W",
+            "suffixSize": "14",
+            "text": "N/A",
+            "thresholds": "0,3000",
+            "url": "",
+            "xpos": "375",
+            "ypos": "135"
+          }
+        ],
+        "boxesDefinitions": null
+      },
+      "pluginVersion": "2.0.3",
+      "targets": [
+        {
+          "alias": "Home's Power Consumed",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "previous"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "emeter",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT last(\"power\") FROM \"emeter\" WHERE (\"poller\" = 'pyshelly' AND \"hostname\" = 'shellyem') AND $timeFilter GROUP BY time($__interval) fill(previous)",
+          "rawQuery": false,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "power"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "poller",
+              "operator": "=",
+              "value": "pyshelly"
+            },
+            {
+              "condition": "AND",
+              "key": "hostname",
+              "operator": "=",
+              "value": "shellyem"
+            }
+          ]
+        },
+        {
+          "alias": "Solar Power Produced",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "previous"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "measurement": "device_status",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "ac_out_grid_power"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "poller",
+              "operator": "=",
+              "value": "pypeimar"
+            },
+            {
+              "condition": "AND",
+              "key": "hostname",
+              "operator": "=",
+              "value": "inverter"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Solar System Diagram",
+      "transformations": [
+        {
+          "id": "calculateField",
+          "options": {
+            "alias": "Energy balance",
+            "binary": {
+              "left": "Solar Power Produced",
+              "operator": "-",
+              "reducer": "sum",
+              "right": "Home's Power Consumed"
+            },
+            "mode": "binary",
+            "reduce": {
+              "reducer": "sum"
+            }
+          }
+        }
+      ],
+      "type": "larona-epict-panel"
+    },
+    {
+      "datasource": "${datasource}",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 3,
+          "mappings": [],
+          "max": 6000,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "watt"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Solar Power Produced"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "dark-orange",
+                      "value": null
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Home's Power Consumed"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "dark-blue",
+                      "value": null
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 0
+      },
+      "id": 4,
+      "options": {
+        "displayMode": "lcd",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showUnfilled": true,
+        "text": {}
+      },
+      "pluginVersion": "7.5.5",
+      "targets": [
+        {
+          "alias": "Home's Power Consumed",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "measurement": "emeter",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "power"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "poller",
+              "operator": "=",
+              "value": "pyshelly"
+            },
+            {
+              "condition": "AND",
+              "key": "hostname",
+              "operator": "=",
+              "value": "shellyem"
+            }
+          ]
+        },
+        {
+          "alias": "Solar Power Produced",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "device_status",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "ac_out_grid_power"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "poller",
+              "operator": "=",
+              "value": "pypeimar"
+            },
+            {
+              "condition": "AND",
+              "key": "hostname",
+              "operator": "=",
+              "value": "inverter"
+            }
+          ]
+        }
+      ],
+      "title": "Home's Power Consumed vs Solar Power Produced",
+      "type": "bargauge"
+    },
+    {
+      "datasource": "${datasource}",
+      "description": "Power balance = (Solar Power Produced - Home's Power Consumed)<br/><br/>\nPositive value = excess power transferred to the grid<br/>\nNegative value = missing power taken from the grid<br/>",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "Watt",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "graph": false,
+              "legend": false,
+              "tooltip": false
+            },
+            "lineInterpolation": "smooth",
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "lineWidth": 1,
+            "pointSize": 4,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": true
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "watt"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Solar Power Produced"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "semi-dark-orange",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.showPoints",
+                "value": "auto"
+              },
+              {
+                "id": "decimals",
+                "value": 3
+              },
+              {
+                "id": "custom.spanNulls",
+                "value": true
+              },
+              {
+                "id": "custom.drawStyle",
+                "value": "line"
+              },
+              {
+                "id": "custom.lineInterpolation",
+                "value": "smooth"
+              },
+              {
+                "id": "custom.fillOpacity",
+                "value": 0
+              },
+              {
+                "id": "custom.lineWidth",
+                "value": 1
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Home's Power Consumed"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-blue",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.drawStyle",
+                "value": "line"
+              },
+              {
+                "id": "custom.lineInterpolation",
+                "value": "smooth"
+              },
+              {
+                "id": "custom.showPoints",
+                "value": "auto"
+              },
+              {
+                "id": "decimals",
+                "value": 3
+              },
+              {
+                "id": "custom.spanNulls",
+                "value": true
+              },
+              {
+                "id": "custom.fillOpacity",
+                "value": 0
+              },
+              {
+                "id": "custom.lineWidth",
+                "value": 1
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Power balance"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "rgb(0, 255, 54)",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "decimals",
+                "value": 3
+              },
+              {
+                "id": "custom.lineInterpolation",
+                "value": "smooth"
+              },
+              {
+                "id": "custom.spanNulls",
+                "value": true
+              },
+              {
+                "id": "custom.showPoints",
+                "value": "auto"
+              },
+              {
+                "id": "custom.drawStyle",
+                "value": "line"
+              },
+              {
+                "id": "custom.fillOpacity",
+                "value": 10
+              },
+              {
+                "id": "custom.gradientMode",
+                "value": "hue"
+              },
+              {
+                "id": "custom.lineWidth",
+                "value": 1
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 14,
+        "w": 24,
+        "x": 0,
+        "y": 8
+      },
+      "id": 2,
+      "options": {
+        "graph": {},
+        "legend": {
+          "calcs": [
+            "min",
+            "max",
+            "lastNotNull"
+          ],
+          "displayMode": "table",
+          "placement": "right"
+        },
+        "tooltipOptions": {
+          "mode": "multi"
+        }
+      },
+      "pluginVersion": "7.5.5",
+      "targets": [
+        {
+          "alias": "Home's Power Consumed",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "previous"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "measurement": "emeter",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "C",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "power"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "poller",
+              "operator": "=",
+              "value": "pyshelly"
+            },
+            {
+              "condition": "AND",
+              "key": "hostname",
+              "operator": "=",
+              "value": "shellyem"
+            }
+          ]
+        },
+        {
+          "alias": "Solar Power Produced",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "previous"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "measurement": "device_status",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "ac_out_grid_power"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "poller",
+              "operator": "=",
+              "value": "pypeimar"
+            },
+            {
+              "condition": "AND",
+              "key": "hostname",
+              "operator": "=",
+              "value": "inverter"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Current Power",
+      "transformations": [
+        {
+          "id": "calculateField",
+          "options": {
+            "alias": "Power balance",
+            "binary": {
+              "left": "Solar Power Produced",
+              "operator": "-",
+              "reducer": "sum",
+              "right": "Home's Power Consumed"
+            },
+            "mode": "binary",
+            "reduce": {
+              "include": [],
+              "reducer": "sum"
+            }
+          }
+        }
+      ],
+      "type": "timeseries"
+    }
+  ],
+  "refresh": "5s",
+  "schemaVersion": 27,
+  "style": "dark",
+  "tags": [
+    "influxdb",
+    "analysis",
+    "photovoltaic",
+    "current metrics"
+  ],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": false,
+          "text": "SolarPVDB",
+          "value": "SolarPVDB"
+        },
+        "description": null,
+        "error": null,
+        "hide": 0,
+        "includeAll": false,
+        "label": "Datasource",
+        "multi": false,
+        "name": "datasource",
+        "options": [],
+        "query": "influxdb",
+        "refresh": 1,
+        "regex": "/SolarPVDB/",
+        "skipUrlSync": false,
+        "type": "datasource"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-12h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "Solar Energy Analysis (current metrics)",
+  "uid": "OuxkfcRRz",
+  "version": 928
+}

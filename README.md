@@ -88,6 +88,9 @@ Change the IPs of the Inverter and Shelly EM to those of your network in the **c
 **/usr/lib/python3.7/peimar/inverter/config.py**  
 **/usr/lib/python3.7/shelly/emeter/config.py**  
   
+Change timezone of your infrastructure in **config.py** file of peimar daemon:  
+``timezone = pytz.timezone("Europe/Rome")``  
+  
 For the management of daemons:  
 **/etc/init.d/peimar-inverter {start|stop|forcekill|status|restart|reload}**  
 **/etc/init.d/shelly-em {start|stop|forcekill|status|restart|reload}**  

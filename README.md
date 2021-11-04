@@ -74,6 +74,7 @@ The database ***telegraf*** contains the metrics of Raspberry Pi and weather for
 
 * Copy folder **peimar** from repository folder **python_collector** to **/usr/lib/python3.7** path in your installation.
 * Copy folder **shelly** from repository folder **python_collector** to **/usr/lib/python3.7** path in your installation.
+* Install python module for connection to Influx databases: ``sudo pip install influxdb``
 * Copy all files from repository folder **init.d** to **/etc/init.d** path in your installation.
 * Make the script **peimar-inverter** in the init.d directory executable by changing its permission: ``sudo chmod +x peimar-inverter``
 * Make the script **shelly-em** in the init.d directory executable by changing its permission: ``sudo chmod +x shelly-em``
@@ -98,7 +99,7 @@ The database ***telegraf*** contains the metrics of Raspberry Pi and weather for
 For the management of daemons:  
 **/etc/init.d/peimar-inverter {start|stop|forcekill|status|restart|reload}**  
 **/etc/init.d/shelly-em {start|stop|forcekill|status|restart|reload}**  
-  
+ 
 ### Grafana configuration
 
 * Copy configuration file **grafana.ini** from repository folder **grafana** to **/etc/grafana/** path of your installation.

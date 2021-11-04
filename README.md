@@ -72,7 +72,17 @@ The database ***telegraf*** contains the metrics of Raspberry Pi and weather for
 
 ### Python collector configuration
 
-
+* Copy folder **peimar** from repository folder **python_collector** to **/usr/lib/python3.7** path in your installation.
+* Copy folder **shelly** from repository folder **python_collector** to **/usr/lib/python3.7** path in your installation.
+* Copy all files from repository folder **init.d** to **/etc/init.d** path in your installation.
+* Make the script **peimar-inverter** in the init.d directory executable by changing its permission: ``sudo chmod +x peimar-inverter``
+* Make the script **shelly-em** in the init.d directory executable by changing its permission: ``sudo chmod +x shelly-em``
+* Create folder **peimar** in **/var/log** path of your installation (owner: pi, group: pi).
+* Create folder **shellyem** in **/var/log** path of your installation (owner: pi, group: pi).
+* Enable all daemon at boot system:
+  
+``sudo update-rc.d peimar-inverter defaults``
+``sudo update-rc.d shelly-em defaults``
 
 ### Grafana configuration
 

@@ -84,12 +84,16 @@ The database ***telegraf*** contains the metrics of Raspberry Pi and weather for
 ``sudo update-rc.d peimar-inverter defaults``  
 ``sudo update-rc.d shelly-em defaults``  
   
-Change the IPs of the Inverter and Shelly EM to those of your network in the **config.py** files:  
+* Change the IPs of the Inverter and Shelly EM to those of your network in the **config.py** files:
+  
 **/usr/lib/python3.7/peimar/inverter/config.py**  
 **/usr/lib/python3.7/shelly/emeter/config.py**  
   
-Change timezone of your infrastructure in **config.py** file of peimar daemon:  
+* Change timezone of your infrastructure in **config.py** file of peimar daemon:
+  
 ``timezone = pytz.timezone("Europe/Rome")``  
+  
+* Reboot system.
   
 For the management of daemons:  
 **/etc/init.d/peimar-inverter {start|stop|forcekill|status|restart|reload}**  

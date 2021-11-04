@@ -54,6 +54,9 @@ Inverter Peimar, Shelly EM and Raspberry are connected to wifi network of my hou
 	``GRANT ALL ON peimar TO peimar``  
 	``GRANT ALL ON telegraf TO telegraf``  
   
+	``CREATE RETENTION POLICY "one_month" ON "telegraf" DURATION 4w REPLICATION 1``  
+	``CREATE RETENTION POLICY "ten_years" ON "peimar" DURATION 520w REPLICATION 1``  
+  
 	``ALTER RETENTION POLICY "one_month" ON "telegraf" DURATION 4w REPLICATION 1 DEFAULT``  
 	``ALTER RETENTION POLICY "ten_years" ON "peimar" DURATION 520w REPLICATION 1 DEFAULT``  
   

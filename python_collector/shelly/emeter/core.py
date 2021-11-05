@@ -157,7 +157,7 @@ def get_emeter(emsrv, emport, emidx, log):
     :type emsrv: str
     :param emport: TCP port of Shelly EM Server
     :type emport: int
-    :param emidx: measurement channel used
+    :param emidx: measurement channel used by Shelly EM
     :type emidx: int
     :param log: enable logging
     :type log: logger object

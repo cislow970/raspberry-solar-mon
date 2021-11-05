@@ -4,7 +4,7 @@ import datetime
 import requests
 import urllib3
 import json
-from shelly.emeter import config
+from . import config
 from logging.handlers import RotatingFileHandler
 from argparse import ArgumentParser
 from influxdb import InfluxDBClient
@@ -110,8 +110,8 @@ def check_alive(emsrv, emport, log):
     :type emport: int
     :param log: enable logging
     :type log: logger object
-    :returns: HTTP response code
-    :rtype: int
+    :returns: HTTP response code, response body and current timestamp
+    :rtype: int, string, datetime
     """
     now = datetime.datetime.utcnow()
     response = None
@@ -157,10 +157,12 @@ def get_emeter(emsrv, emport, emidx, log):
     :type emsrv: str
     :param emport: TCP port of Shelly EM Server
     :type emport: int
+    :param emidx: measurement channel used
+    :type emidx: int
     :param log: enable logging
     :type log: logger object
-    :returns: HTTP response code
-    :rtype: int
+    :returns: HTTP response code, response body and current timestamp
+    :rtype: int, string, datetime
     """
     now = datetime.datetime.utcnow()
     response = None

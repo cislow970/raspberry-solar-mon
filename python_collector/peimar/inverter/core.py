@@ -4,7 +4,7 @@ import datetime
 import requests
 import urllib3
 import json
-from peimar.inverter import config
+from . import config
 from logging.handlers import RotatingFileHandler
 from argparse import ArgumentParser
 from influxdb import InfluxDBClient
@@ -124,8 +124,8 @@ def check_alive(invsrv, invport, log):
     :type invport: int
     :param log: enable logging
     :type log: logger object
-    :returns: HTTP response code
-    :rtype: int
+    :returns: HTTP response code and current timestamp
+    :rtype: int, datetime
     """
     now = datetime.datetime.utcnow()
     response = None
@@ -168,8 +168,8 @@ def device_status(invsrv, invport, log):
     :type invport: int
     :param log: enable logging
     :type log: logger object
-    :returns: HTTP response code
-    :rtype: int
+    :returns: HTTP response code, response body and current timestamp
+    :rtype: int, string, datetime
     """
     now = datetime.datetime.utcnow()
     response = None

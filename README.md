@@ -100,8 +100,8 @@ The database ***telegraf*** contains the metrics of Raspberry Pi and weather for
 * Reboot system.
   
 For the management of daemons:  
-**/etc/init.d/peimar-inverter {start|stop|forcekill|status|restart|reload}**  
-**/etc/init.d/shelly-em {start|stop|forcekill|status|restart|reload}**  
+**sudo /etc/init.d/peimar-inverter {start|stop|forcekill|status|restart|reload}**  
+**sudo /etc/init.d/shelly-em {start|stop|forcekill|status|restart|reload}**  
  
 ### Grafana configuration
 

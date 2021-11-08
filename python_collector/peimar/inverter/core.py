@@ -4,7 +4,7 @@ import datetime
 import requests
 import urllib3
 import json
-from . import config
+from peimar.inverter import config
 from logging.handlers import RotatingFileHandler
 from argparse import ArgumentParser
 from influxdb import InfluxDBClient

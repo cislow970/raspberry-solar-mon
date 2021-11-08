@@ -199,7 +199,7 @@ def main():
         signal.signal(signal.SIGTERM, service_shutdown)
         signal.signal(signal.SIGINT, service_shutdown)
 
-        # print("\nInverter Collector: Starting main program\n")
+        # print("\nEnergy Meter Collector: Starting main program\n")
 
         # Start the job threads
         try:
@@ -220,7 +220,7 @@ def main():
             j1.join()
             j2.join()
 
-        # print("\nInverter Collector: Exiting main program\n")
+        # print("\nEnergy Meter Collector: Exiting main program\n")
 
 
 if __name__ == "__main__":

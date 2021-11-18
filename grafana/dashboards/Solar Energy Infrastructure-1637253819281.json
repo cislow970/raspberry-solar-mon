@@ -17,7 +17,7 @@
   "gnetId": null,
   "graphTooltip": 1,
   "id": 9,
-  "iteration": 1636371976273,
+  "iteration": 1637253420907,
   "links": [],
   "panels": [
     {
@@ -169,7 +169,7 @@
       "dashes": false,
       "datasource": "${datasource}",
       "decimals": 0,
-      "description": "Night time hourly (No production): 21:30 - 05:30",
+      "description": "Night time hourly (No production):<br/>\nDaylight saving time = 21:30 - 06:00<br/>\nSolar Time = 19:00 - 07:30",
       "fieldConfig": {
         "defaults": {
           "unit": "short"
@@ -452,8 +452,8 @@
           "measurement": "device_status",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT last(\"tot_generated\") FROM \"device_status\" WHERE (\"hostname\" = 'inverter' AND \"poller\" = 'pypeimar') AND $timeFilter GROUP BY time($__interval) fill(null)",
-          "rawQuery": false,
+          "query": "SELECT last(\"tot_generated\") FROM \"device_status\" WHERE (\"tot_generated\" != 0 AND \"poller\" =~ /^$poller$/ AND \"hostname\" =~ /^$server$/) AND $timeFilter GROUP BY time($__interval) fill(null)",
+          "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
           "select": [
@@ -556,6 +556,8 @@
           "measurement": "device_status",
           "orderByTime": "ASC",
           "policy": "default",
+          "query": "SELECT last(\"tot_running_time\") FROM \"device_status\" WHERE (\"tot_running_time\" != 0 AND \"poller\" =~ /^$poller$/ AND \"hostname\" =~ /^$server$/) AND $timeFilter GROUP BY time($__interval) fill(null)",
+          "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
           "select": [
@@ -658,6 +660,8 @@
           "measurement": "device_status",
           "orderByTime": "ASC",
           "policy": "default",
+          "query": "SELECT last(\"today_generated\") FROM \"device_status\" WHERE (\"today_generated\" != 0 AND \"poller\" =~ /^$poller$/ AND \"hostname\" =~ /^$server$/) AND $timeFilter GROUP BY time($__interval) fill(null)",
+          "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
           "select": [
@@ -760,6 +764,8 @@
           "measurement": "device_status",
           "orderByTime": "ASC",
           "policy": "default",
+          "query": "SELECT last(\"today_running_time\") FROM \"device_status\" WHERE (\"today_running_time\" != 0 AND \"poller\" =~ /^$poller$/ AND \"hostname\" =~ /^$server$/) AND $timeFilter GROUP BY time($__interval) fill(null)",
+          "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
           "select": [
@@ -862,6 +868,8 @@
           "measurement": "device_status",
           "orderByTime": "ASC",
           "policy": "default",
+          "query": "SELECT last(\"tot_generated\")  * 0.29 FROM \"device_status\" WHERE (\"tot_generated\" != 0 AND \"poller\" =~ /^$poller$/ AND \"hostname\" =~ /^$server$/) AND $timeFilter GROUP BY time($__interval) fill(null)",
+          "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
           "select": [
@@ -970,8 +978,8 @@
           "measurement": "device_status",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT last(\"today_generated\")  * 0.23 FROM \"device_status\" WHERE (\"hostname\" =~ /^$server$/ AND \"poller\" =~ /^$poller$/) AND $timeFilter GROUP BY time($__interval) fill(null)",
-          "rawQuery": false,
+          "query": "SELECT last(\"today_generated\")  * 0.29 FROM \"device_status\" WHERE (\"today_generated\" != 0 AND \"poller\" =~ /^$poller$/ AND \"hostname\" =~ /^$server$/) AND $timeFilter GROUP BY time($__interval) fill(null)",
+          "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
           "select": [
@@ -1080,6 +1088,8 @@
           "measurement": "device_status",
           "orderByTime": "ASC",
           "policy": "default",
+          "query": "SELECT last(\"co2_reduction\") FROM \"device_status\" WHERE (\"co2_reduction\" != 0 AND \"poller\" =~ /^$poller$/ AND \"hostname\" =~ /^$server$/) AND $timeFilter GROUP BY time($__interval) fill(null)",
+          "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
           "select": [
@@ -4621,5 +4631,5 @@
   "timezone": "browser",
   "title": "Solar Energy Infrastructure",
   "uid": "k5JbZFWRk",
-  "version": 409
+  "version": 413
 }

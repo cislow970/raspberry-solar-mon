@@ -17,7 +17,7 @@
   "gnetId": null,
   "graphTooltip": 1,
   "id": 11,
-  "iteration": 1635873370084,
+  "iteration": 1642765666222,
   "links": [],
   "panels": [
     {
@@ -462,7 +462,7 @@
               "legend": false,
               "tooltip": false
             },
-            "lineInterpolation": "smooth",
+            "lineInterpolation": "linear",
             "lineStyle": {
               "fill": "solid"
             },
@@ -518,7 +518,7 @@
               },
               {
                 "id": "custom.lineInterpolation",
-                "value": "smooth"
+                "value": "linear"
               },
               {
                 "id": "custom.fillOpacity",
@@ -549,7 +549,7 @@
               },
               {
                 "id": "custom.lineInterpolation",
-                "value": "smooth"
+                "value": "linear"
               },
               {
                 "id": "custom.showPoints",
@@ -592,7 +592,7 @@
               },
               {
                 "id": "custom.lineInterpolation",
-                "value": "smooth"
+                "value": "linear"
               },
               {
                 "id": "custom.spanNulls",
@@ -813,5 +813,5 @@
   "timezone": "",
   "title": "Solar Energy Analysis (current metrics)",
   "uid": "OuxkfcRRz",
-  "version": 928
+  "version": 931
 }

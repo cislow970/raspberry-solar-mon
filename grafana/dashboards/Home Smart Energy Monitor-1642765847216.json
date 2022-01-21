@@ -17,7 +17,7 @@
   "gnetId": null,
   "graphTooltip": 1,
   "id": 12,
-  "iteration": 1635873209566,
+  "iteration": 1642765837127,
   "links": [],
   "panels": [
     {
@@ -1033,7 +1033,7 @@
               "legend": false,
               "tooltip": false
             },
-            "lineInterpolation": "smooth",
+            "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
             "scaleDistribution": {
@@ -1261,7 +1261,7 @@
               "legend": false,
               "tooltip": false
             },
-            "lineInterpolation": "smooth",
+            "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
             "scaleDistribution": {
@@ -1478,5 +1478,5 @@
   "timezone": "",
   "title": "Home Smart Energy Monitor",
   "uid": "_bF8WARgk",
-  "version": 79
+  "version": 83
 }

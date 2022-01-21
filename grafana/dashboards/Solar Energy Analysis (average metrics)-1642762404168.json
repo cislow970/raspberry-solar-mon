@@ -17,7 +17,7 @@
   "gnetId": null,
   "graphTooltip": 1,
   "id": 16,
-  "iteration": 1635873354050,
+  "iteration": 1642694514705,
   "links": [],
   "panels": [
     {
@@ -845,44 +845,8 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Average energy balance for every 10 minutes (production time)",
+      "title": "Average energy balance for every 10 minutes",
       "transformations": [
-        {
-          "id": "filterByValue",
-          "options": {
-            "filters": [
-              {
-                "config": {
-                  "id": "greater",
-                  "options": {
-                    "value": 0
-                  }
-                },
-                "fieldName": "Home's Energy Consumed"
-              }
-            ],
-            "match": "any",
-            "type": "include"
-          }
-        },
-        {
-          "id": "filterByValue",
-          "options": {
-            "filters": [
-              {
-                "config": {
-                  "id": "greater",
-                  "options": {
-                    "value": 0
-                  }
-                },
-                "fieldName": "Solar Energy Produced"
-              }
-            ],
-            "match": "any",
-            "type": "include"
-          }
-        },
         {
           "id": "calculateField",
           "options": {
@@ -1160,44 +1124,8 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Average energy surplus for every 10 minutes (production time)",
+      "title": "Average energy surplus for every 10 minutes",
       "transformations": [
-        {
-          "id": "filterByValue",
-          "options": {
-            "filters": [
-              {
-                "config": {
-                  "id": "greater",
-                  "options": {
-                    "value": 0
-                  }
-                },
-                "fieldName": "Home's Energy Consumed"
-              }
-            ],
-            "match": "any",
-            "type": "include"
-          }
-        },
-        {
-          "id": "filterByValue",
-          "options": {
-            "filters": [
-              {
-                "config": {
-                  "id": "greater",
-                  "options": {
-                    "value": 0
-                  }
-                },
-                "fieldName": "Solar Energy Produced"
-              }
-            ],
-            "match": "any",
-            "type": "include"
-          }
-        },
         {
           "id": "calculateField",
           "options": {
@@ -1221,7 +1149,7 @@
             "filters": [
               {
                 "config": {
-                  "id": "greaterOrEqual",
+                  "id": "greater",
                   "options": {
                     "value": 0
                   }
@@ -1489,44 +1417,8 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Average energy missing for every 10 minutes (production time)",
+      "title": "Average energy missing for every 10 minutes",
       "transformations": [
-        {
-          "id": "filterByValue",
-          "options": {
-            "filters": [
-              {
-                "config": {
-                  "id": "greater",
-                  "options": {
-                    "value": 0
-                  }
-                },
-                "fieldName": "Home's Energy Consumed"
-              }
-            ],
-            "match": "any",
-            "type": "include"
-          }
-        },
-        {
-          "id": "filterByValue",
-          "options": {
-            "filters": [
-              {
-                "config": {
-                  "id": "greater",
-                  "options": {
-                    "value": 0
-                  }
-                },
-                "fieldName": "Solar Energy Produced"
-              }
-            ],
-            "match": "any",
-            "type": "include"
-          }
-        },
         {
           "id": "calculateField",
           "options": {
@@ -1550,7 +1442,7 @@
             "filters": [
               {
                 "config": {
-                  "id": "lowerOrEqual",
+                  "id": "lower",
                   "options": {
                     "value": 0
                   }
@@ -1765,7 +1657,7 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Average percentage energy self-consumption with energy surplus greater than zero for every 10 minutes (production time)",
+      "title": "Average percentage energy self-consumption with energy surplus greater than zero for every 10 minutes",
       "transformations": [
         {
           "id": "calculateField",
@@ -1790,7 +1682,7 @@
             "filters": [
               {
                 "config": {
-                  "id": "greaterOrEqual",
+                  "id": "greater",
                   "options": {
                     "value": 0
                   }
@@ -1890,12 +1782,12 @@
     ]
   },
   "time": {
-    "from": "now-12h",
+    "from": "now-24h",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "Solar Energy Analysis (average metrics)",
   "uid": "zsJZJDRgz",
-  "version": 11
+  "version": 29
 }

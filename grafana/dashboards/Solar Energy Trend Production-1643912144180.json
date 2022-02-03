@@ -17,7 +17,7 @@
   "gnetId": null,
   "graphTooltip": 1,
   "id": 10,
-  "iteration": 1636370019546,
+  "iteration": 1643912129867,
   "links": [],
   "panels": [
     {
@@ -467,12 +467,12 @@
     ]
   },
   "time": {
-    "from": "now-30d",
+    "from": "now-90d",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "browser",
   "title": "Solar Energy Trend Production",
   "uid": "ZqOyT2ZRk",
-  "version": 134
+  "version": 138
 }

@@ -17,7 +17,7 @@
   "gnetId": null,
   "graphTooltip": 1,
   "id": 16,
-  "iteration": 1642694514705,
+  "iteration": 1644067211201,
   "links": [],
   "panels": [
     {
@@ -869,7 +869,7 @@
     },
     {
       "datasource": "${datasource}",
-      "description": "Energy Self-consumption = Home's Energy Consumed",
+      "description": "When energy surplus is greater than zero then \"Energy Self-consumption = Home's Energy Consumed\"",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1166,7 +1166,7 @@
     },
     {
       "datasource": "${datasource}",
-      "description": "Energy Self-consumption = Solar Energy Produced",
+      "description": "When energy missing is lower than zero then \"Energy Self-consumption = Solar Energy Produced\"",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1503,7 +1503,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "Energy self-consumption %"
+              "options": "Energy self-consumption on the total produced %"
             },
             "properties": [
               {
@@ -1657,7 +1657,7 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Average percentage energy self-consumption with energy surplus greater than zero for every 10 minutes",
+      "title": "Energy surplus greater than zero -> Average percentage self-consumption for every 10 minutes",
       "transformations": [
         {
           "id": "calculateField",
@@ -1730,12 +1730,306 @@
         {
           "id": "calculateField",
           "options": {
-            "alias": "Energy self-consumption %",
+            "alias": "Energy self-consumption on the total produced %",
             "binary": {
               "left": "Energy self-consumption / Solar Energy Produced",
               "operator": "*",
               "reducer": "sum",
               "right": "100"
+            },
+            "mode": "binary",
+            "reduce": {
+              "reducer": "sum"
+            },
+            "replaceFields": true
+          }
+        }
+      ],
+      "type": "timeseries"
+    },
+    {
+      "datasource": "${datasource}",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 1,
+            "drawStyle": "bars",
+            "fillOpacity": 40,
+            "gradientMode": "hue",
+            "hideFrom": {
+              "graph": false,
+              "legend": false,
+              "tooltip": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 4,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": true
+          },
+          "mappings": [],
+          "max": 100,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Energy self-consumption on the total consumed %"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "super-light-purple",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 24,
+        "x": 0,
+        "y": 59
+      },
+      "id": 14,
+      "options": {
+        "graph": {},
+        "legend": {
+          "calcs": [
+            "min",
+            "max",
+            "mean",
+            "lastNotNull"
+          ],
+          "displayMode": "table",
+          "placement": "bottom"
+        },
+        "tooltipOptions": {
+          "mode": "multi"
+        }
+      },
+      "pluginVersion": "7.5.5",
+      "targets": [
+        {
+          "alias": "Home's Energy Consumed",
+          "groupBy": [
+            {
+              "params": [
+                "10m"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "measurement": "emeter",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "D",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "power"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              },
+              {
+                "params": [
+                  " * 0.166667"
+                ],
+                "type": "math"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "poller",
+              "operator": "=",
+              "value": "pyshelly"
+            },
+            {
+              "condition": "AND",
+              "key": "hostname",
+              "operator": "=",
+              "value": "shellyem"
+            }
+          ]
+        },
+        {
+          "alias": "Solar Energy Produced",
+          "groupBy": [
+            {
+              "params": [
+                "10m"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "measurement": "device_status",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "ac_out_grid_power"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              },
+              {
+                "params": [
+                  " * 0.166667"
+                ],
+                "type": "math"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "poller",
+              "operator": "=",
+              "value": "pypeimar"
+            },
+            {
+              "condition": "AND",
+              "key": "hostname",
+              "operator": "=",
+              "value": "inverter"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Energy missing greater than zero -> Average percentage self-consumption every 10 minutes",
+      "transformations": [
+        {
+          "id": "filterByValue",
+          "options": {
+            "filters": [
+              {
+                "config": {
+                  "id": "greater",
+                  "options": {
+                    "value": 0
+                  }
+                },
+                "fieldName": "Solar Energy Produced"
+              }
+            ],
+            "match": "any",
+            "type": "include"
+          }
+        },
+        {
+          "id": "calculateField",
+          "options": {
+            "alias": "Energy missing",
+            "binary": {
+              "left": "Solar Energy Produced",
+              "operator": "-",
+              "reducer": "sum",
+              "right": "Home's Energy Consumed"
+            },
+            "mode": "binary",
+            "reduce": {
+              "include": [
+                "Solar Energy Produced"
+              ],
+              "reducer": "diff"
+            },
+            "replaceFields": false
+          }
+        },
+        {
+          "id": "filterByValue",
+          "options": {
+            "filters": [
+              {
+                "config": {
+                  "id": "lower",
+                  "options": {
+                    "value": 0
+                  }
+                },
+                "fieldName": "Energy missing"
+              }
+            ],
+            "match": "any",
+            "type": "include"
+          }
+        },
+        {
+          "id": "calculateField",
+          "options": {
+            "binary": {
+              "left": "Solar Energy Produced",
+              "operator": "*",
+              "reducer": "sum",
+              "right": "100 "
+            },
+            "mode": "binary",
+            "reduce": {
+              "reducer": "sum"
+            },
+            "replaceFields": false
+          }
+        },
+        {
+          "id": "calculateField",
+          "options": {
+            "alias": "Energy self-consumption on the total consumed %",
+            "binary": {
+              "left": "Solar Energy Produced * 100 ",
+              "operator": "/",
+              "reducer": "sum",
+              "right": "Home's Energy Consumed"
             },
             "mode": "binary",
             "reduce": {
@@ -1789,5 +2083,5 @@
   "timezone": "",
   "title": "Solar Energy Analysis (average metrics)",
   "uid": "zsJZJDRgz",
-  "version": 29
+  "version": 76
 }

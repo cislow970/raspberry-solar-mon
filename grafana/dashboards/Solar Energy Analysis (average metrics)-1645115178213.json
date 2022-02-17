@@ -8,20 +8,29 @@
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
         "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
         "type": "dashboard"
       }
     ]
   },
   "description": "Power home's consumed vs Photovoltaic Production",
   "editable": true,
-  "gnetId": null,
+  "fiscalYearStartMonth": 0,
   "graphTooltip": 1,
   "id": 16,
-  "iteration": 1644067211201,
+  "iteration": 1645114554626,
   "links": [],
+  "liveNow": false,
   "panels": [
     {
-      "datasource": "${datasource}",
+      "datasource": {
+        "uid": "${datasource}"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -38,7 +47,8 @@
             "hideFrom": {
               "graph": false,
               "legend": false,
-              "tooltip": false
+              "tooltip": false,
+              "viz": false
             },
             "lineInterpolation": "smooth",
             "lineStyle": {
@@ -50,7 +60,14 @@
               "type": "linear"
             },
             "showPoints": "never",
-            "spanNulls": true
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
           },
           "mappings": [],
           "min": 0,
@@ -175,12 +192,13 @@
           "calcs": [
             "min",
             "max",
+            "mean",
             "lastNotNull"
           ],
           "displayMode": "table",
-          "placement": "right"
+          "placement": "bottom"
         },
-        "tooltipOptions": {
+        "tooltip": {
           "mode": "multi"
         }
       },
@@ -287,14 +305,14 @@
           ]
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Average Watt for every 10 minutes",
       "transformations": [],
       "type": "timeseries"
     },
     {
-      "datasource": "${datasource}",
+      "datasource": {
+        "uid": "${datasource}"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -311,7 +329,8 @@
             "hideFrom": {
               "graph": false,
               "legend": false,
-              "tooltip": false
+              "tooltip": false,
+              "viz": false
             },
             "lineInterpolation": "smooth",
             "lineStyle": {
@@ -323,7 +342,14 @@
               "type": "linear"
             },
             "showPoints": "never",
-            "spanNulls": true
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
           },
           "mappings": [],
           "thresholds": {
@@ -478,7 +504,7 @@
         ]
       },
       "gridPos": {
-        "h": 12,
+        "h": 14,
         "w": 24,
         "x": 0,
         "y": 12
@@ -490,13 +516,14 @@
           "calcs": [
             "min",
             "max",
+            "mean",
             "lastNotNull",
             "sum"
           ],
           "displayMode": "table",
-          "placement": "right"
+          "placement": "bottom"
         },
-        "tooltipOptions": {
+        "tooltip": {
           "mode": "multi"
         }
       },
@@ -615,8 +642,6 @@
           ]
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Average Watt-hour for every 10 minutes",
       "transformations": [
         {
@@ -639,7 +664,9 @@
       "type": "timeseries"
     },
     {
-      "datasource": "${datasource}",
+      "datasource": {
+        "uid": "${datasource}"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -656,7 +683,8 @@
             "hideFrom": {
               "graph": false,
               "legend": false,
-              "tooltip": false
+              "tooltip": false,
+              "viz": false
             },
             "lineInterpolation": "linear",
             "lineWidth": 1,
@@ -665,7 +693,14 @@
               "type": "linear"
             },
             "showPoints": "never",
-            "spanNulls": true
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
           },
           "mappings": [],
           "thresholds": {
@@ -705,7 +740,7 @@
         "h": 8,
         "w": 24,
         "x": 0,
-        "y": 24
+        "y": 26
       },
       "id": 10,
       "options": {
@@ -714,13 +749,14 @@
           "calcs": [
             "min",
             "max",
+            "mean",
             "lastNotNull",
             "sum"
           ],
           "displayMode": "table",
           "placement": "bottom"
         },
-        "tooltipOptions": {
+        "tooltip": {
           "mode": "multi"
         }
       },
@@ -843,8 +879,6 @@
           ]
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Average energy balance for every 10 minutes",
       "transformations": [
         {
@@ -868,7 +902,9 @@
       "type": "timeseries"
     },
     {
-      "datasource": "${datasource}",
+      "datasource": {
+        "uid": "${datasource}"
+      },
       "description": "When energy surplus is greater than zero then \"Energy Self-consumption = Home's Energy Consumed\"",
       "fieldConfig": {
         "defaults": {
@@ -885,7 +921,8 @@
             "hideFrom": {
               "graph": false,
               "legend": false,
-              "tooltip": false
+              "tooltip": false,
+              "viz": false
             },
             "lineInterpolation": "linear",
             "lineWidth": 1,
@@ -894,7 +931,14 @@
               "type": "linear"
             },
             "showPoints": "never",
-            "spanNulls": true
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
           },
           "mappings": [],
           "thresholds": {
@@ -984,7 +1028,7 @@
         "h": 9,
         "w": 24,
         "x": 0,
-        "y": 32
+        "y": 34
       },
       "id": 12,
       "options": {
@@ -993,13 +1037,14 @@
           "calcs": [
             "min",
             "max",
+            "mean",
             "lastNotNull",
             "sum"
           ],
           "displayMode": "table",
           "placement": "bottom"
         },
-        "tooltipOptions": {
+        "tooltip": {
           "mode": "multi"
         }
       },
@@ -1122,8 +1167,6 @@
           ]
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Average energy surplus for every 10 minutes",
       "transformations": [
         {
@@ -1165,7 +1208,9 @@
       "type": "timeseries"
     },
     {
-      "datasource": "${datasource}",
+      "datasource": {
+        "uid": "${datasource}"
+      },
       "description": "When energy missing is lower than zero then \"Energy Self-consumption = Solar Energy Produced\"",
       "fieldConfig": {
         "defaults": {
@@ -1182,7 +1227,8 @@
             "hideFrom": {
               "graph": false,
               "legend": false,
-              "tooltip": false
+              "tooltip": false,
+              "viz": false
             },
             "lineInterpolation": "linear",
             "lineWidth": 1,
@@ -1191,7 +1237,14 @@
               "type": "linear"
             },
             "showPoints": "never",
-            "spanNulls": true
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
           },
           "mappings": [],
           "thresholds": {
@@ -1277,7 +1330,7 @@
         "h": 9,
         "w": 24,
         "x": 0,
-        "y": 41
+        "y": 43
       },
       "id": 13,
       "options": {
@@ -1286,13 +1339,14 @@
           "calcs": [
             "min",
             "max",
+            "mean",
             "lastNotNull",
             "sum"
           ],
           "displayMode": "table",
           "placement": "bottom"
         },
-        "tooltipOptions": {
+        "tooltip": {
           "mode": "multi"
         }
       },
@@ -1415,8 +1469,6 @@
           ]
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Average energy missing for every 10 minutes",
       "transformations": [
         {
@@ -1458,7 +1510,9 @@
       "type": "timeseries"
     },
     {
-      "datasource": "${datasource}",
+      "datasource": {
+        "uid": "${datasource}"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -1475,7 +1529,8 @@
             "hideFrom": {
               "graph": false,
               "legend": false,
-              "tooltip": false
+              "tooltip": false,
+              "viz": false
             },
             "lineInterpolation": "linear",
             "lineWidth": 1,
@@ -1484,7 +1539,14 @@
               "type": "linear"
             },
             "showPoints": "auto",
-            "spanNulls": true
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
           },
           "mappings": [],
           "max": 100,
@@ -1521,7 +1583,7 @@
         "h": 9,
         "w": 24,
         "x": 0,
-        "y": 50
+        "y": 52
       },
       "id": 11,
       "options": {
@@ -1536,7 +1598,7 @@
           "displayMode": "table",
           "placement": "bottom"
         },
-        "tooltipOptions": {
+        "tooltip": {
           "mode": "multi"
         }
       },
@@ -1655,8 +1717,6 @@
           ]
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Energy surplus greater than zero -> Average percentage self-consumption for every 10 minutes",
       "transformations": [
         {
@@ -1748,7 +1808,9 @@
       "type": "timeseries"
     },
     {
-      "datasource": "${datasource}",
+      "datasource": {
+        "uid": "${datasource}"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -1765,7 +1827,8 @@
             "hideFrom": {
               "graph": false,
               "legend": false,
-              "tooltip": false
+              "tooltip": false,
+              "viz": false
             },
             "lineInterpolation": "linear",
             "lineWidth": 1,
@@ -1774,7 +1837,14 @@
               "type": "linear"
             },
             "showPoints": "auto",
-            "spanNulls": true
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
           },
           "mappings": [],
           "max": 100,
@@ -1811,7 +1881,7 @@
         "h": 9,
         "w": 24,
         "x": 0,
-        "y": 59
+        "y": 61
       },
       "id": 14,
       "options": {
@@ -1826,7 +1896,7 @@
           "displayMode": "table",
           "placement": "bottom"
         },
-        "tooltipOptions": {
+        "tooltip": {
           "mode": "multi"
         }
       },
@@ -1945,8 +2015,6 @@
           ]
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Energy missing greater than zero -> Average percentage self-consumption every 10 minutes",
       "transformations": [
         {
@@ -2043,7 +2111,7 @@
     }
   ],
   "refresh": "15m",
-  "schemaVersion": 27,
+  "schemaVersion": 34,
   "style": "dark",
   "tags": [
     "influxdb",
@@ -2059,8 +2127,6 @@
           "text": "SolarPVDB",
           "value": "SolarPVDB"
         },
-        "description": null,
-        "error": null,
         "hide": 0,
         "includeAll": false,
         "label": "Datasource",
@@ -2083,5 +2149,6 @@
   "timezone": "",
   "title": "Solar Energy Analysis (average metrics)",
   "uid": "zsJZJDRgz",
-  "version": 76
+  "version": 83,
+  "weekStart": ""
 }

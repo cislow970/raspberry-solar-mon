@@ -1,4 +1,41 @@
 {
+  "__inputs": [
+    {
+      "name": "DS_SOLARPVDB",
+      "label": "SolarPVDB",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "influxdb",
+      "pluginName": "InfluxDB"
+    }
+  ],
+  "__elements": [],
+  "__requires": [
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "8.3.4"
+    },
+    {
+      "type": "datasource",
+      "id": "influxdb",
+      "name": "InfluxDB",
+      "version": "1.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "stat",
+      "name": "Stat",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "timeseries",
+      "name": "Time series",
+      "version": ""
+    }
+  ],
   "annotations": {
     "list": [
       {
@@ -8,21 +45,27 @@
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
         "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
         "type": "dashboard"
       }
     ]
   },
   "description": "Shelly EM device",
   "editable": true,
-  "gnetId": null,
+  "fiscalYearStartMonth": 0,
   "graphTooltip": 1,
-  "id": 12,
-  "iteration": 1642765837127,
+  "id": null,
+  "iteration": 1645518945299,
   "links": [],
+  "liveNow": false,
   "panels": [
     {
       "collapsed": false,
-      "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -31,12 +74,13 @@
       },
       "id": 17,
       "panels": [],
-      "repeat": null,
       "title": "Shelly EM status",
       "type": "row"
     },
     {
-      "datasource": "${datasource}",
+      "datasource": {
+        "uid": "${DS_SOLARPVDB}"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -45,20 +89,15 @@
           },
           "mappings": [
             {
-              "from": "",
-              "id": 1,
-              "text": "Online",
-              "to": "",
-              "type": 1,
-              "value": "1"
-            },
-            {
-              "from": "",
-              "id": 2,
-              "text": "Unreachable/Offline",
-              "to": "",
-              "type": 1,
-              "value": "0"
+              "options": {
+                "0": {
+                  "text": "Unreachable/Offline"
+                },
+                "1": {
+                  "text": "Online"
+                }
+              },
+              "type": "value"
             }
           ],
           "max": 1,
@@ -102,7 +141,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "7.5.5",
+      "pluginVersion": "8.3.4",
       "targets": [
         {
           "groupBy": [
@@ -157,7 +196,9 @@
       "type": "stat"
     },
     {
-      "datasource": "${datasource}",
+      "datasource": {
+        "uid": "${DS_SOLARPVDB}"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -202,7 +243,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "7.5.5",
+      "pluginVersion": "8.3.4",
       "targets": [
         {
           "groupBy": [
@@ -257,7 +298,9 @@
       "type": "stat"
     },
     {
-      "datasource": "${datasource}",
+      "datasource": {
+        "uid": "${DS_SOLARPVDB}"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -266,20 +309,15 @@
           },
           "mappings": [
             {
-              "from": "",
-              "id": 1,
-              "text": "Connected",
-              "to": "",
-              "type": 1,
-              "value": "1"
-            },
-            {
-              "from": "",
-              "id": 2,
-              "text": "Disconnected",
-              "to": "",
-              "type": 1,
-              "value": "0"
+              "options": {
+                "0": {
+                  "text": "Disconnected"
+                },
+                "1": {
+                  "text": "Connected"
+                }
+              },
+              "type": "value"
             }
           ],
           "max": 1,
@@ -323,7 +361,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "7.5.5",
+      "pluginVersion": "8.3.4",
       "targets": [
         {
           "groupBy": [
@@ -378,7 +416,9 @@
       "type": "stat"
     },
     {
-      "datasource": "${datasource}",
+      "datasource": {
+        "uid": "${DS_SOLARPVDB}"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -387,20 +427,15 @@
           },
           "mappings": [
             {
-              "from": "",
-              "id": 1,
-              "text": "Connected",
-              "to": "",
-              "type": 1,
-              "value": "1"
-            },
-            {
-              "from": "",
-              "id": 2,
-              "text": "Disconnected",
-              "to": "",
-              "type": 1,
-              "value": "0"
+              "options": {
+                "0": {
+                  "text": "Disconnected"
+                },
+                "1": {
+                  "text": "Connected"
+                }
+              },
+              "type": "value"
             }
           ],
           "max": 1,
@@ -444,7 +479,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "7.5.5",
+      "pluginVersion": "8.3.4",
       "targets": [
         {
           "groupBy": [
@@ -499,7 +534,9 @@
       "type": "stat"
     },
     {
-      "datasource": "${datasource}",
+      "datasource": {
+        "uid": "${DS_SOLARPVDB}"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -544,7 +581,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "7.5.5",
+      "pluginVersion": "8.3.4",
       "targets": [
         {
           "groupBy": [
@@ -599,7 +636,9 @@
       "type": "stat"
     },
     {
-      "datasource": "${datasource}",
+      "datasource": {
+        "uid": "${DS_SOLARPVDB}"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -644,7 +683,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "7.5.5",
+      "pluginVersion": "8.3.4",
       "targets": [
         {
           "groupBy": [
@@ -699,7 +738,9 @@
       "type": "stat"
     },
     {
-      "datasource": "${datasource}",
+      "datasource": {
+        "uid": "${DS_SOLARPVDB}"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -744,7 +785,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "7.5.5",
+      "pluginVersion": "8.3.4",
       "targets": [
         {
           "groupBy": [
@@ -799,7 +840,9 @@
       "type": "stat"
     },
     {
-      "datasource": "${datasource}",
+      "datasource": {
+        "uid": "${DS_SOLARPVDB}"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -844,7 +887,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "7.5.5",
+      "pluginVersion": "8.3.4",
       "targets": [
         {
           "groupBy": [
@@ -900,7 +943,6 @@
     },
     {
       "collapsed": false,
-      "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -909,12 +951,13 @@
       },
       "id": 19,
       "panels": [],
-      "repeat": null,
       "title": "Shelly EM first measuring channel",
       "type": "row"
     },
     {
-      "datasource": "${datasource}",
+      "datasource": {
+        "uid": "${DS_SOLARPVDB}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -958,7 +1001,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "7.5.5",
+      "pluginVersion": "8.3.4",
       "targets": [
         {
           "groupBy": [
@@ -1009,13 +1052,13 @@
           ]
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Total consumed energy",
       "type": "stat"
     },
     {
-      "datasource": "${datasource}",
+      "datasource": {
+        "uid": "${DS_SOLARPVDB}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1031,7 +1074,8 @@
             "hideFrom": {
               "graph": false,
               "legend": false,
-              "tooltip": false
+              "tooltip": false,
+              "viz": false
             },
             "lineInterpolation": "linear",
             "lineWidth": 1,
@@ -1040,7 +1084,14 @@
               "type": "linear"
             },
             "showPoints": "never",
-            "spanNulls": true
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
           },
           "decimals": 2,
           "mappings": [],
@@ -1056,6 +1107,30 @@
           "unit": "none"
         },
         "overrides": [
+          {
+            "__systemRef": "hideSeriesFrom",
+            "matcher": {
+              "id": "byNames",
+              "options": {
+                "mode": "exclude",
+                "names": [
+                  "Instantaneous power consumed"
+                ],
+                "prefix": "All except:",
+                "readOnly": true
+              }
+            },
+            "properties": [
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "graph": true,
+                  "legend": false,
+                  "tooltip": false
+                }
+              }
+            ]
+          },
           {
             "matcher": {
               "id": "byName",
@@ -1130,7 +1205,7 @@
           "displayMode": "table",
           "placement": "bottom"
         },
-        "tooltipOptions": {
+        "tooltip": {
           "mode": "multi"
         }
       },
@@ -1236,14 +1311,14 @@
           ]
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Power",
       "transformations": [],
       "type": "timeseries"
     },
     {
-      "datasource": "${datasource}",
+      "datasource": {
+        "uid": "${DS_SOLARPVDB}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1259,7 +1334,8 @@
             "hideFrom": {
               "graph": false,
               "legend": false,
-              "tooltip": false
+              "tooltip": false,
+              "viz": false
             },
             "lineInterpolation": "linear",
             "lineWidth": 1,
@@ -1268,7 +1344,14 @@
               "type": "linear"
             },
             "showPoints": "never",
-            "spanNulls": true
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
           },
           "decimals": 2,
           "mappings": [],
@@ -1319,7 +1402,7 @@
           "displayMode": "table",
           "placement": "bottom"
         },
-        "tooltipOptions": {
+        "tooltip": {
           "mode": "single"
         }
       },
@@ -1375,14 +1458,12 @@
           ]
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Voltage",
       "type": "timeseries"
     }
   ],
   "refresh": "5s",
-  "schemaVersion": 27,
+  "schemaVersion": 34,
   "style": "dark",
   "tags": [
     "shelly em",
@@ -1398,8 +1479,6 @@
           "text": "SolarPVDB",
           "value": "SolarPVDB"
         },
-        "description": null,
-        "error": null,
         "hide": 2,
         "includeAll": false,
         "label": "Datasource",
@@ -1413,16 +1492,12 @@
         "type": "datasource"
       },
       {
-        "allValue": null,
-        "current": {
-          "selected": false,
-          "text": "pyshelly",
-          "value": "pyshelly"
+        "current": {},
+        "datasource": {
+          "type": "influxdb",
+          "uid": "${DS_SOLARPVDB}"
         },
-        "datasource": "SolarPVDB",
         "definition": "SHOW TAG VALUES FROM status WITH KEY=poller",
-        "description": null,
-        "error": null,
         "hide": 0,
         "includeAll": false,
         "label": "Poller",
@@ -1435,22 +1510,17 @@
         "skipUrlSync": false,
         "sort": 0,
         "tagValuesQuery": "",
-        "tags": [],
         "tagsQuery": "",
         "type": "query",
         "useTags": false
       },
       {
-        "allValue": null,
-        "current": {
-          "selected": false,
-          "text": "shellyem",
-          "value": "shellyem"
+        "current": {},
+        "datasource": {
+          "type": "influxdb",
+          "uid": "${DS_SOLARPVDB}"
         },
-        "datasource": "SolarPVDB",
         "definition": "SHOW TAG VALUES FROM status WITH KEY=hostname WHERE poller =~ /$poller/",
-        "description": null,
-        "error": null,
         "hide": 0,
         "includeAll": false,
         "label": "Server",
@@ -1463,7 +1533,6 @@
         "skipUrlSync": false,
         "sort": 0,
         "tagValuesQuery": "",
-        "tags": [],
         "tagsQuery": "",
         "type": "query",
         "useTags": false
@@ -1478,5 +1547,6 @@
   "timezone": "",
   "title": "Home Smart Energy Monitor",
   "uid": "_bF8WARgk",
-  "version": 83
+  "version": 83,
+  "weekStart": ""
 }

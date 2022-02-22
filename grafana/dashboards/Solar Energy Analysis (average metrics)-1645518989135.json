@@ -1,4 +1,35 @@
 {
+  "__inputs": [
+    {
+      "name": "DS_SOLARPVDB",
+      "label": "SolarPVDB",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "influxdb",
+      "pluginName": "InfluxDB"
+    }
+  ],
+  "__elements": [],
+  "__requires": [
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "8.3.4"
+    },
+    {
+      "type": "datasource",
+      "id": "influxdb",
+      "name": "InfluxDB",
+      "version": "1.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "timeseries",
+      "name": "Time series",
+      "version": ""
+    }
+  ],
   "annotations": {
     "list": [
       {
@@ -22,14 +53,14 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 1,
-  "id": 16,
-  "iteration": 1645114554626,
+  "id": null,
+  "iteration": 1645518981809,
   "links": [],
   "liveNow": false,
   "panels": [
     {
       "datasource": {
-        "uid": "${datasource}"
+        "uid": "${DS_SOLARPVDB}"
       },
       "description": "",
       "fieldConfig": {
@@ -311,7 +342,7 @@
     },
     {
       "datasource": {
-        "uid": "${datasource}"
+        "uid": "${DS_SOLARPVDB}"
       },
       "description": "",
       "fieldConfig": {
@@ -665,7 +696,7 @@
     },
     {
       "datasource": {
-        "uid": "${datasource}"
+        "uid": "${DS_SOLARPVDB}"
       },
       "description": "",
       "fieldConfig": {
@@ -903,7 +934,7 @@
     },
     {
       "datasource": {
-        "uid": "${datasource}"
+        "uid": "${DS_SOLARPVDB}"
       },
       "description": "When energy surplus is greater than zero then \"Energy Self-consumption = Home's Energy Consumed\"",
       "fieldConfig": {
@@ -1209,7 +1240,7 @@
     },
     {
       "datasource": {
-        "uid": "${datasource}"
+        "uid": "${DS_SOLARPVDB}"
       },
       "description": "When energy missing is lower than zero then \"Energy Self-consumption = Solar Energy Produced\"",
       "fieldConfig": {
@@ -1511,7 +1542,7 @@
     },
     {
       "datasource": {
-        "uid": "${datasource}"
+        "uid": "${DS_SOLARPVDB}"
       },
       "description": "",
       "fieldConfig": {
@@ -1809,7 +1840,7 @@
     },
     {
       "datasource": {
-        "uid": "${datasource}"
+        "uid": "${DS_SOLARPVDB}"
       },
       "description": "",
       "fieldConfig": {
@@ -2149,6 +2180,6 @@
   "timezone": "",
   "title": "Solar Energy Analysis (average metrics)",
   "uid": "zsJZJDRgz",
-  "version": 83,
+  "version": 86,
   "weekStart": ""
 }

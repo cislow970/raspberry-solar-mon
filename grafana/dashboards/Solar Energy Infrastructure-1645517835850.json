@@ -1,4 +1,68 @@
 {
+  "__inputs": [
+    {
+      "name": "DS_SOLARPVDB",
+      "label": "SolarPVDB",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "influxdb",
+      "pluginName": "InfluxDB"
+    },
+    {
+      "name": "DS_INFLUXDB",
+      "label": "InfluxDB",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "influxdb",
+      "pluginName": "InfluxDB"
+    },
+    {
+      "name": "VAR_ENERGY_COST",
+      "type": "constant",
+      "label": "energy_cost",
+      "value": "0.22",
+      "description": ""
+    }
+  ],
+  "__elements": [],
+  "__requires": [
+    {
+      "type": "panel",
+      "id": "gauge",
+      "name": "Gauge",
+      "version": ""
+    },
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "8.3.4"
+    },
+    {
+      "type": "panel",
+      "id": "grafana-clock-panel",
+      "name": "Clock",
+      "version": "1.2.0"
+    },
+    {
+      "type": "panel",
+      "id": "graph",
+      "name": "Graph (old)",
+      "version": ""
+    },
+    {
+      "type": "datasource",
+      "id": "influxdb",
+      "name": "InfluxDB",
+      "version": "1.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "stat",
+      "name": "Stat",
+      "version": ""
+    }
+  ],
   "annotations": {
     "list": [
       {
@@ -8,21 +72,27 @@
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
         "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
         "type": "dashboard"
       }
     ]
   },
   "description": "Photovoltaic Production by Peimar Inverter single-phase",
   "editable": true,
-  "gnetId": null,
+  "fiscalYearStartMonth": 0,
   "graphTooltip": 1,
-  "id": 9,
-  "iteration": 1637253420907,
+  "id": null,
+  "iteration": 1645517821001,
   "links": [],
+  "liveNow": false,
   "panels": [
     {
       "collapsed": false,
-      "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -31,12 +101,13 @@
       },
       "id": 18,
       "panels": [],
-      "repeat": null,
       "title": "Inverter Statistics",
       "type": "row"
     },
     {
-      "datasource": "${datasource}",
+      "datasource": {
+        "uid": "${DS_SOLARPVDB}"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -46,20 +117,15 @@
           "decimals": 0,
           "mappings": [
             {
-              "from": "",
-              "id": 1,
-              "text": "Unreachable/Offline",
-              "to": "",
-              "type": 1,
-              "value": "0"
-            },
-            {
-              "from": "",
-              "id": 2,
-              "text": "Online",
-              "to": "",
-              "type": 1,
-              "value": "1"
+              "options": {
+                "0": {
+                  "text": "Unreachable/Offline"
+                },
+                "1": {
+                  "text": "Online"
+                }
+              },
+              "type": "value"
             }
           ],
           "max": 1,
@@ -103,7 +169,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "7.5.5",
+      "pluginVersion": "8.3.4",
       "targets": [
         {
           "alias": "Alive",
@@ -155,19 +221,155 @@
           ]
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Inverter Alive",
       "type": "stat"
     },
     {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "${DS_SOLARPVDB}"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 0,
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "color": "semi-dark-purple",
+                  "index": 0,
+                  "text": "Off"
+                },
+                "1": {
+                  "color": "semi-dark-yellow",
+                  "index": 1,
+                  "text": "Waiting"
+                },
+                "2": {
+                  "color": "semi-dark-green",
+                  "index": 2,
+                  "text": "Normal"
+                },
+                "3": {
+                  "color": "dark-red",
+                  "index": 3,
+                  "text": "Error"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "noValue": "Off",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "semi-dark-purple",
+                "value": null
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 3,
+        "x": 3,
+        "y": 1
+      },
+      "id": 71,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.3.4",
+      "targets": [
+        {
+          "alias": "Running State",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_SOLARPVDB}"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "device_status",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "running_state"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "poller",
+              "operator": "=~",
+              "value": "/^$poller$/"
+            },
+            {
+              "condition": "AND",
+              "key": "hostname",
+              "operator": "=~",
+              "value": "/^$server$/"
+            }
+          ]
+        }
+      ],
+      "title": "Inverter Running State",
+      "type": "stat"
+    },
+    {
       "aliasColors": {
-        "Alive": "yellow"
+        "Alive": "yellow",
+        "History Alive": "light-yellow"
       },
       "bars": true,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${datasource}",
+      "datasource": {
+        "type": "influxdb",
+        "uid": "${DS_SOLARPVDB}"
+      },
       "decimals": 0,
       "description": "Night time hourly (No production):<br/>\nDaylight saving time = 21:30 - 06:00<br/>\nSolar Time = 19:00 - 07:30",
       "fieldConfig": {
@@ -180,8 +382,8 @@
       "fillGradient": 5,
       "gridPos": {
         "h": 3,
-        "w": 18,
-        "x": 3,
+        "w": 15,
+        "x": 6,
         "y": 1
       },
       "hiddenSeries": false,
@@ -202,7 +404,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.5",
+      "pluginVersion": "8.3.4",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -212,7 +414,11 @@
       "steppedLine": false,
       "targets": [
         {
-          "alias": "Alive",
+          "alias": "History Alive",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_SOLARPVDB}"
+          },
           "groupBy": [
             {
               "params": [
@@ -262,9 +468,7 @@
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
       "timeRegions": [],
-      "timeShift": null,
       "title": "Inverter Alive History",
       "tooltip": {
         "shared": true,
@@ -273,9 +477,7 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
@@ -284,7 +486,6 @@
           "$$hashKey": "object:1664",
           "decimals": 0,
           "format": "short",
-          "label": null,
           "logBase": 1,
           "max": "1",
           "min": "0",
@@ -293,24 +494,15 @@
         {
           "$$hashKey": "object:1665",
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": false
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
-      "datasource": null,
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
-      },
       "gridPos": {
         "h": 3,
         "w": 3,
@@ -319,7 +511,7 @@
       },
       "id": 31,
       "options": {
-        "bgColor": "rgba(0, 0, 0, 0)",
+        "bgColor": "",
         "clockType": "24 hour",
         "countdownSettings": {
           "endCountdownTime": "2021-06-04T04:17:49+02:00",
@@ -329,12 +521,14 @@
           "dateFormat": "YYYY-MM-DD",
           "fontSize": "12px",
           "fontWeight": "normal",
+          "locale": "",
           "showDate": true
         },
         "mode": "time",
+        "refresh": "sec",
         "timeSettings": {
           "fontSize": "20px",
-          "fontWeight": "normal"
+          "fontWeight": "bold"
         },
         "timezone": "Europe/Rome",
         "timezoneSettings": {
@@ -344,7 +538,7 @@
           "zoneFormat": "offsetAbbv"
         }
       },
-      "pluginVersion": "7.5.5",
+      "pluginVersion": "1.2.0",
       "targets": [
         {
           "groupBy": [
@@ -382,12 +576,13 @@
           "tags": []
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "type": "grafana-clock-panel"
     },
     {
-      "datasource": "${datasource}",
+      "datasource": {
+        "type": "influxdb",
+        "uid": "${DS_SOLARPVDB}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -396,6 +591,7 @@
           "decimals": 2,
           "mappings": [],
           "min": 0,
+          "noValue": "0",
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -431,10 +627,14 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "7.5.5",
+      "pluginVersion": "8.3.4",
       "targets": [
         {
           "alias": "Total generated",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_SOLARPVDB}"
+          },
           "groupBy": [
             {
               "params": [
@@ -452,7 +652,7 @@
           "measurement": "device_status",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT last(\"tot_generated\") FROM \"device_status\" WHERE (\"tot_generated\" != 0 AND \"poller\" =~ /^$poller$/ AND \"hostname\" =~ /^$server$/) AND $timeFilter GROUP BY time($__interval) fill(null)",
+          "query": "SELECT last(\"tot_generated\") FROM \"device_status\" WHERE (\"tot_generated\" > 0 AND \"poller\" =~ /^$poller$/ AND \"hostname\" =~ /^$server$/) AND $timeFilter GROUP BY time($__interval) fill(null)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -485,13 +685,14 @@
           ]
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Total generated",
       "type": "stat"
     },
     {
-      "datasource": "${datasource}",
+      "datasource": {
+        "type": "influxdb",
+        "uid": "${DS_SOLARPVDB}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -500,6 +701,7 @@
           "decimals": 1,
           "mappings": [],
           "min": 0,
+          "noValue": "0",
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -535,10 +737,14 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "7.5.5",
+      "pluginVersion": "8.3.4",
       "targets": [
         {
           "alias": "Total Running Time",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_SOLARPVDB}"
+          },
           "groupBy": [
             {
               "params": [
@@ -556,7 +762,7 @@
           "measurement": "device_status",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT last(\"tot_running_time\") FROM \"device_status\" WHERE (\"tot_running_time\" != 0 AND \"poller\" =~ /^$poller$/ AND \"hostname\" =~ /^$server$/) AND $timeFilter GROUP BY time($__interval) fill(null)",
+          "query": "SELECT last(\"tot_running_time\") FROM \"device_status\" WHERE (\"tot_running_time\" > 0 AND \"poller\" =~ /^$poller$/ AND \"hostname\" =~ /^$server$/) AND $timeFilter GROUP BY time($__interval) fill(null)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -589,13 +795,14 @@
           ]
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Total Running Time",
       "type": "stat"
     },
     {
-      "datasource": "${datasource}",
+      "datasource": {
+        "type": "influxdb",
+        "uid": "${DS_SOLARPVDB}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -604,6 +811,7 @@
           "decimals": 2,
           "mappings": [],
           "min": 0,
+          "noValue": "0",
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -639,10 +847,14 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "7.5.5",
+      "pluginVersion": "8.3.4",
       "targets": [
         {
           "alias": "Today generated",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_SOLARPVDB}"
+          },
           "groupBy": [
             {
               "params": [
@@ -660,7 +872,7 @@
           "measurement": "device_status",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT last(\"today_generated\") FROM \"device_status\" WHERE (\"today_generated\" != 0 AND \"poller\" =~ /^$poller$/ AND \"hostname\" =~ /^$server$/) AND $timeFilter GROUP BY time($__interval) fill(null)",
+          "query": "SELECT last(\"today_generated\") FROM \"device_status\" WHERE (\"today_generated\" >= 0 AND \"poller\" =~ /^$poller$/ AND \"hostname\" =~ /^$server$/) AND $timeFilter GROUP BY time($__interval) fill(null)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -693,13 +905,14 @@
           ]
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Today generated",
       "type": "stat"
     },
     {
-      "datasource": "${datasource}",
+      "datasource": {
+        "type": "influxdb",
+        "uid": "${DS_SOLARPVDB}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -708,6 +921,7 @@
           "decimals": 1,
           "mappings": [],
           "min": 0,
+          "noValue": "0",
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -743,10 +957,14 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "7.5.5",
+      "pluginVersion": "8.3.4",
       "targets": [
         {
           "alias": "Today Running Time",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_SOLARPVDB}"
+          },
           "groupBy": [
             {
               "params": [
@@ -764,7 +982,7 @@
           "measurement": "device_status",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT last(\"today_running_time\") FROM \"device_status\" WHERE (\"today_running_time\" != 0 AND \"poller\" =~ /^$poller$/ AND \"hostname\" =~ /^$server$/) AND $timeFilter GROUP BY time($__interval) fill(null)",
+          "query": "SELECT last(\"today_running_time\") FROM \"device_status\" WHERE (\"today_running_time\" >= 0 AND \"poller\" =~ /^$poller$/ AND \"hostname\" =~ /^$server$/) AND $timeFilter GROUP BY time($__interval) fill(null)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -797,13 +1015,14 @@
           ]
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Today Running Time",
       "type": "stat"
     },
     {
-      "datasource": "${datasource}",
+      "datasource": {
+        "type": "influxdb",
+        "uid": "${DS_SOLARPVDB}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -812,6 +1031,7 @@
           "decimals": 3,
           "mappings": [],
           "min": 0,
+          "noValue": "0",
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -847,10 +1067,14 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "7.5.5",
+      "pluginVersion": "8.3.4",
       "targets": [
         {
           "alias": "Total Savings",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_SOLARPVDB}"
+          },
           "groupBy": [
             {
               "params": [
@@ -868,7 +1092,7 @@
           "measurement": "device_status",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT last(\"tot_generated\")  * 0.29 FROM \"device_status\" WHERE (\"tot_generated\" != 0 AND \"poller\" =~ /^$poller$/ AND \"hostname\" =~ /^$server$/) AND $timeFilter GROUP BY time($__interval) fill(null)",
+          "query": "SELECT last(\"tot_generated\")  * $energy_cost FROM \"device_status\" WHERE (\"tot_generated\" > 0 AND \"poller\" =~ /^$poller$/ AND \"hostname\" =~ /^$server$/) AND $timeFilter GROUP BY time($__interval) fill(null)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -907,13 +1131,14 @@
           ]
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Total Savings",
       "type": "stat"
     },
     {
-      "datasource": "${datasource}",
+      "datasource": {
+        "type": "influxdb",
+        "uid": "${DS_SOLARPVDB}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -922,6 +1147,7 @@
           "decimals": 3,
           "mappings": [],
           "min": 0,
+          "noValue": "0",
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -957,10 +1183,14 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "7.5.5",
+      "pluginVersion": "8.3.4",
       "targets": [
         {
           "alias": "Today Savings",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_SOLARPVDB}"
+          },
           "groupBy": [
             {
               "params": [
@@ -978,7 +1208,7 @@
           "measurement": "device_status",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT last(\"today_generated\")  * 0.29 FROM \"device_status\" WHERE (\"today_generated\" != 0 AND \"poller\" =~ /^$poller$/ AND \"hostname\" =~ /^$server$/) AND $timeFilter GROUP BY time($__interval) fill(null)",
+          "query": "SELECT last(\"today_generated\")  * $energy_cost FROM \"device_status\" WHERE (\"today_generated\" >= 0 AND \"poller\" =~ /^$poller$/ AND \"hostname\" =~ /^$server$/) AND $timeFilter GROUP BY time($__interval) fill(null)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -1017,13 +1247,14 @@
           ]
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Today Savings",
       "type": "stat"
     },
     {
-      "datasource": "${datasource}",
+      "datasource": {
+        "type": "influxdb",
+        "uid": "${DS_SOLARPVDB}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1032,6 +1263,7 @@
           "decimals": 1,
           "mappings": [],
           "min": 0,
+          "noValue": "0",
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -1067,10 +1299,14 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "7.5.5",
+      "pluginVersion": "8.3.4",
       "targets": [
         {
           "alias": "Total CO2 emission reduction",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_SOLARPVDB}"
+          },
           "groupBy": [
             {
               "params": [
@@ -1088,7 +1324,7 @@
           "measurement": "device_status",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT last(\"co2_reduction\") FROM \"device_status\" WHERE (\"co2_reduction\" != 0 AND \"poller\" =~ /^$poller$/ AND \"hostname\" =~ /^$server$/) AND $timeFilter GROUP BY time($__interval) fill(null)",
+          "query": "SELECT last(\"co2_reduction\") FROM \"device_status\" WHERE (\"co2_reduction\" > 0 AND \"poller\" =~ /^$poller$/ AND \"hostname\" =~ /^$server$/) AND $timeFilter GROUP BY time($__interval) fill(null)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -1121,14 +1357,11 @@
           ]
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Total CO2 emission reduction",
       "type": "stat"
     },
     {
       "collapsed": false,
-      "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1137,27 +1370,26 @@
       },
       "id": 44,
       "panels": [],
-      "repeat": null,
       "title": "Weather $city, $country",
       "type": "row"
     },
     {
-      "cacheTimeout": null,
-      "datasource": null,
       "description": "",
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "thresholds"
           },
-          "decimals": 2,
+          "decimals": 1,
           "mappings": [
             {
-              "id": 0,
-              "op": "=",
-              "text": "N/A",
-              "type": 1,
-              "value": "null"
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "N/A"
+                }
+              },
+              "type": "special"
             }
           ],
           "max": 40,
@@ -1204,7 +1436,7 @@
         "showThresholdMarkers": true,
         "text": {}
       },
-      "pluginVersion": "7.5.5",
+      "pluginVersion": "8.3.4",
       "targets": [
         {
           "groupBy": [
@@ -1271,8 +1503,6 @@
       "type": "gauge"
     },
     {
-      "cacheTimeout": null,
-      "datasource": null,
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1281,11 +1511,13 @@
           "decimals": 1,
           "mappings": [
             {
-              "id": 0,
-              "op": "=",
-              "text": "N/A",
-              "type": 1,
-              "value": "null"
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "N/A"
+                }
+              },
+              "type": "special"
             }
           ],
           "max": 25,
@@ -1318,7 +1550,6 @@
         "y": 8
       },
       "id": 48,
-      "interval": null,
       "links": [],
       "maxDataPoints": 100,
       "options": {
@@ -1334,7 +1565,7 @@
         "showThresholdMarkers": true,
         "text": {}
       },
-      "pluginVersion": "7.5.5",
+      "pluginVersion": "8.3.4",
       "targets": [
         {
           "groupBy": [
@@ -1389,8 +1620,10 @@
       "type": "gauge"
     },
     {
-      "cacheTimeout": null,
-      "datasource": "InfluxDB",
+      "datasource": {
+        "type": "influxdb",
+        "uid": "${DS_INFLUXDB}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1398,76 +1631,94 @@
           },
           "mappings": [
             {
-              "$$hashKey": "object:1229",
-              "from": "0",
-              "id": 0,
-              "text": "↓",
-              "to": "22.5",
-              "type": 2
+              "options": {
+                "from": 0,
+                "result": {
+                  "text": "↓"
+                },
+                "to": 22.5
+              },
+              "type": "range"
             },
             {
-              "$$hashKey": "object:1230",
-              "from": "22.5",
-              "id": 1,
-              "text": "↙",
-              "to": "77.5",
-              "type": 2
+              "options": {
+                "from": 22.5,
+                "result": {
+                  "text": "↙"
+                },
+                "to": 77.5
+              },
+              "type": "range"
             },
             {
-              "$$hashKey": "object:1231",
-              "from": "77.5",
-              "id": 2,
-              "text": "←",
-              "to": "112.5",
-              "type": 2
+              "options": {
+                "from": 77.5,
+                "result": {
+                  "text": "←"
+                },
+                "to": 112.5
+              },
+              "type": "range"
             },
             {
-              "$$hashKey": "object:1232",
-              "from": "112.5",
-              "id": 3,
-              "text": "↖",
-              "to": "157.5",
-              "type": 2
+              "options": {
+                "from": 112.5,
+                "result": {
+                  "text": "↖"
+                },
+                "to": 157.5
+              },
+              "type": "range"
             },
             {
-              "$$hashKey": "object:1233",
-              "from": "157.5",
-              "id": 4,
-              "text": "↑",
-              "to": "202.5",
-              "type": 2
+              "options": {
+                "from": 157.5,
+                "result": {
+                  "text": "↑"
+                },
+                "to": 202.5
+              },
+              "type": "range"
             },
             {
-              "$$hashKey": "object:1234",
-              "from": "202.5",
-              "id": 5,
-              "text": "↗",
-              "to": "247.5",
-              "type": 2
+              "options": {
+                "from": 202.5,
+                "result": {
+                  "text": "↗"
+                },
+                "to": 247.5
+              },
+              "type": "range"
             },
             {
-              "$$hashKey": "object:1235",
-              "from": "247.5",
-              "id": 6,
-              "text": "→",
-              "to": "292.5",
-              "type": 2
+              "options": {
+                "from": 247.5,
+                "result": {
+                  "text": "→"
+                },
+                "to": 292.5
+              },
+              "type": "range"
             },
             {
-              "$$hashKey": "object:1236",
-              "from": "292.5",
-              "id": 7,
-              "text": "↘",
-              "to": "337.5",
-              "type": 2
+              "options": {
+                "from": 292.5,
+                "result": {
+                  "text": "↘"
+                },
+                "to": 337.5
+              },
+              "type": "range"
             },
             {
-              "$$hashKey": "object:1237",
-              "from": "337.5",
-              "id": 8,
-              "text": "↓",
-              "to": "360",
-              "type": 2
+              "options": {
+                "from": 337.5,
+                "result": {
+                  "text": "↓"
+                },
+                "to": 360
+              },
+              "type": "range"
             }
           ],
           "thresholds": {
@@ -1490,7 +1741,6 @@
         "y": 8
       },
       "id": 50,
-      "interval": null,
       "links": [],
       "maxDataPoints": 100,
       "options": {
@@ -1508,7 +1758,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "7.5.5",
+      "pluginVersion": "8.3.4",
       "targets": [
         {
           "groupBy": [
@@ -1563,8 +1813,10 @@
       "type": "stat"
     },
     {
-      "cacheTimeout": null,
-      "datasource": "InfluxDB",
+      "datasource": {
+        "type": "influxdb",
+        "uid": "${DS_INFLUXDB}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1573,12 +1825,13 @@
           "decimals": 0,
           "mappings": [
             {
-              "$$hashKey": "object:190",
-              "id": 0,
-              "op": "=",
-              "text": "N/A",
-              "type": 1,
-              "value": "null"
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "N/A"
+                }
+              },
+              "type": "special"
             }
           ],
           "thresholds": {
@@ -1609,7 +1862,6 @@
         "y": 8
       },
       "id": 62,
-      "interval": null,
       "links": [],
       "maxDataPoints": 100,
       "options": {
@@ -1627,7 +1879,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "7.5.5",
+      "pluginVersion": "8.3.4",
       "targets": [
         {
           "groupBy": [
@@ -1682,26 +1934,38 @@
       "type": "stat"
     },
     {
-      "cacheTimeout": null,
-      "colorBackground": false,
-      "colorValue": false,
-      "colors": [
-        "#299c46",
-        "rgba(237, 129, 40, 0.89)",
-        "#d44a3a"
-      ],
-      "datasource": "InfluxDB",
       "fieldConfig": {
-        "defaults": {},
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "N/A"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
         "overrides": []
-      },
-      "format": "none",
-      "gauge": {
-        "maxValue": 100,
-        "minValue": 0,
-        "show": false,
-        "thresholdLabels": false,
-        "thresholdMarkers": true
       },
       "gridPos": {
         "h": 6,
@@ -1710,46 +1974,44 @@
         "y": 8
       },
       "id": 66,
-      "interval": null,
       "links": [],
-      "mappingType": 1,
-      "mappingTypes": [
-        {
-          "$$hashKey": "object:110",
-          "name": "value to text",
-          "value": 1
-        },
-        {
-          "$$hashKey": "object:111",
-          "name": "range to text",
-          "value": 2
-        }
-      ],
       "maxDataPoints": 100,
-      "nullPointMode": "connected",
-      "nullText": null,
-      "postfix": "",
-      "postfixFontSize": "50%",
-      "prefix": "",
-      "prefixFontSize": "50%",
-      "rangeMaps": [
-        {
-          "from": "null",
-          "text": "N/A",
-          "to": "null"
-        }
-      ],
-      "sparkline": {
-        "fillColor": "rgba(31, 118, 189, 0.18)",
-        "full": false,
-        "lineColor": "rgb(31, 120, 193)",
-        "show": false
+      "options": {
+        "colorMode": "none",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^last$/",
+          "values": false
+        },
+        "textMode": "auto"
       },
-      "tableColumn": "",
+      "pluginVersion": "8.3.4",
       "targets": [
         {
           "alias": "",
-          "groupBy": [],
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB}"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
           "measurement": "openweathermap",
           "orderByTime": "ASC",
           "policy": "default",
@@ -1784,41 +2046,46 @@
           ]
         }
       ],
-      "thresholds": "",
       "title": "Weather condition",
-      "type": "singlestat",
-      "valueFontSize": "80%",
-      "valueMaps": [
-        {
-          "$$hashKey": "object:113",
-          "op": "=",
-          "text": "N/A",
-          "value": "null"
-        }
-      ],
-      "valueName": "first"
+      "type": "stat"
     },
     {
-      "cacheTimeout": null,
-      "colorBackground": false,
-      "colorValue": false,
-      "colors": [
-        "#299c46",
-        "rgba(237, 129, 40, 0.89)",
-        "#d44a3a"
-      ],
-      "datasource": "InfluxDB",
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
+      "datasource": {
+        "type": "influxdb",
+        "uid": "${DS_INFLUXDB}"
       },
-      "format": "dateTimeAsIso",
-      "gauge": {
-        "maxValue": 100,
-        "minValue": 0,
-        "show": false,
-        "thresholdLabels": false,
-        "thresholdMarkers": true
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "N/A"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "dateTimeAsIso"
+        },
+        "overrides": []
       },
       "gridPos": {
         "h": 3,
@@ -1827,40 +2094,23 @@
         "y": 8
       },
       "id": 68,
-      "interval": null,
       "links": [],
-      "mappingType": 1,
-      "mappingTypes": [
-        {
-          "name": "value to text",
-          "value": 1
-        },
-        {
-          "name": "range to text",
-          "value": 2
-        }
-      ],
       "maxDataPoints": 100,
-      "nullPointMode": "connected",
-      "nullText": null,
-      "postfix": "",
-      "postfixFontSize": "50%",
-      "prefix": "",
-      "prefixFontSize": "50%",
-      "rangeMaps": [
-        {
-          "from": "null",
-          "text": "N/A",
-          "to": "null"
-        }
-      ],
-      "sparkline": {
-        "fillColor": "rgba(31, 118, 189, 0.18)",
-        "full": false,
-        "lineColor": "rgb(31, 120, 193)",
-        "show": false
+      "options": {
+        "colorMode": "none",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
       },
-      "tableColumn": "",
+      "pluginVersion": "8.3.4",
       "targets": [
         {
           "groupBy": [
@@ -1917,22 +2167,14 @@
           ]
         }
       ],
-      "thresholds": "",
       "title": "Sunrise time",
-      "type": "singlestat",
-      "valueFontSize": "50%",
-      "valueMaps": [
-        {
-          "op": "=",
-          "text": "N/A",
-          "value": "null"
-        }
-      ],
-      "valueName": "current"
+      "type": "stat"
     },
     {
-      "cacheTimeout": null,
-      "datasource": "InfluxDB",
+      "datasource": {
+        "type": "influxdb",
+        "uid": "${DS_INFLUXDB}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1941,14 +2183,17 @@
           "decimals": 0,
           "mappings": [
             {
-              "$$hashKey": "object:324",
-              "id": 0,
-              "op": "=",
-              "text": "N/A",
-              "type": 1,
-              "value": "null"
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "N/A"
+                }
+              },
+              "type": "special"
             }
           ],
+          "max": 100,
+          "min": 0,
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -1977,7 +2222,6 @@
         "y": 11
       },
       "id": 60,
-      "interval": null,
       "links": [],
       "maxDataPoints": 100,
       "options": {
@@ -1995,7 +2239,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "7.5.5",
+      "pluginVersion": "8.3.4",
       "targets": [
         {
           "groupBy": [
@@ -2050,8 +2294,10 @@
       "type": "stat"
     },
     {
-      "cacheTimeout": null,
-      "datasource": "InfluxDB",
+      "datasource": {
+        "type": "influxdb",
+        "uid": "${DS_INFLUXDB}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -2060,14 +2306,17 @@
           "decimals": 0,
           "mappings": [
             {
-              "$$hashKey": "object:287",
-              "id": 0,
-              "op": "=",
-              "text": "N/A",
-              "type": 1,
-              "value": "null"
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "N/A"
+                }
+              },
+              "type": "special"
             }
           ],
+          "max": 100,
+          "min": 0,
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -2092,7 +2341,6 @@
         "y": 11
       },
       "id": 64,
-      "interval": null,
       "links": [],
       "maxDataPoints": 100,
       "options": {
@@ -2110,7 +2358,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "7.5.5",
+      "pluginVersion": "8.3.4",
       "targets": [
         {
           "groupBy": [
@@ -2165,26 +2413,42 @@
       "type": "stat"
     },
     {
-      "cacheTimeout": null,
-      "colorBackground": false,
-      "colorValue": false,
-      "colors": [
-        "#299c46",
-        "rgba(237, 129, 40, 0.89)",
-        "#d44a3a"
-      ],
-      "datasource": "InfluxDB",
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
+      "datasource": {
+        "type": "influxdb",
+        "uid": "${DS_INFLUXDB}"
       },
-      "format": "dateTimeAsIso",
-      "gauge": {
-        "maxValue": 100,
-        "minValue": 0,
-        "show": false,
-        "thresholdLabels": false,
-        "thresholdMarkers": true
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "N/A"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "dateTimeAsIso"
+        },
+        "overrides": []
       },
       "gridPos": {
         "h": 3,
@@ -2193,42 +2457,23 @@
         "y": 11
       },
       "id": 70,
-      "interval": null,
       "links": [],
-      "mappingType": 1,
-      "mappingTypes": [
-        {
-          "$$hashKey": "object:888",
-          "name": "value to text",
-          "value": 1
-        },
-        {
-          "$$hashKey": "object:889",
-          "name": "range to text",
-          "value": 2
-        }
-      ],
       "maxDataPoints": 100,
-      "nullPointMode": "connected",
-      "nullText": null,
-      "postfix": "",
-      "postfixFontSize": "50%",
-      "prefix": "",
-      "prefixFontSize": "50%",
-      "rangeMaps": [
-        {
-          "from": "null",
-          "text": "N/A",
-          "to": "null"
-        }
-      ],
-      "sparkline": {
-        "fillColor": "rgba(31, 118, 189, 0.18)",
-        "full": false,
-        "lineColor": "rgb(31, 120, 193)",
-        "show": false
+      "options": {
+        "colorMode": "none",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
       },
-      "tableColumn": "",
+      "pluginVersion": "8.3.4",
       "targets": [
         {
           "groupBy": [
@@ -2285,23 +2530,11 @@
           ]
         }
       ],
-      "thresholds": "",
       "title": "Sunset time",
-      "type": "singlestat",
-      "valueFontSize": "50%",
-      "valueMaps": [
-        {
-          "$$hashKey": "object:891",
-          "op": "=",
-          "text": "N/A",
-          "value": "null"
-        }
-      ],
-      "valueName": "current"
+      "type": "stat"
     },
     {
       "collapsed": false,
-      "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -2310,12 +2543,13 @@
       },
       "id": 14,
       "panels": [],
-      "repeat": null,
       "title": "Inverter DC Input",
       "type": "row"
     },
     {
-      "datasource": "${datasource}",
+      "datasource": {
+        "uid": "${DS_SOLARPVDB}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -2359,7 +2593,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "7.5.5",
+      "pluginVersion": "8.3.4",
       "targets": [
         {
           "alias": "PV1 Voltage",
@@ -2411,8 +2645,6 @@
           ]
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "PV1 Voltage",
       "type": "stat"
     },
@@ -2426,7 +2658,9 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${datasource}",
+      "datasource": {
+        "uid": "${DS_SOLARPVDB}"
+      },
       "decimals": 1,
       "fieldConfig": {
         "defaults": {
@@ -2461,7 +2695,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.5",
+      "pluginVersion": "8.3.4",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -2521,7 +2755,6 @@
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
       "timeRegions": [
         {
           "$$hashKey": "object:597",
@@ -2535,7 +2768,6 @@
           "to": "19:30"
         }
       ],
-      "timeShift": null,
       "title": "PV1 Voltage History",
       "tooltip": {
         "shared": true,
@@ -2544,36 +2776,28 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
       "yaxes": [
         {
           "$$hashKey": "object:7599",
-          "decimals": null,
           "format": "volt",
           "label": "Volt",
           "logBase": 1,
-          "max": null,
           "min": "0",
           "show": true
         },
         {
           "$$hashKey": "object:7600",
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": false
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
@@ -2587,7 +2811,9 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${datasource}",
+      "datasource": {
+        "uid": "${DS_SOLARPVDB}"
+      },
       "decimals": 2,
       "fieldConfig": {
         "defaults": {
@@ -2622,7 +2848,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.5",
+      "pluginVersion": "8.3.4",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -2682,7 +2908,6 @@
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
       "timeRegions": [
         {
           "$$hashKey": "object:597",
@@ -2696,7 +2921,6 @@
           "to": "19:30"
         }
       ],
-      "timeShift": null,
       "title": "PV1 Current History",
       "tooltip": {
         "shared": true,
@@ -2705,40 +2929,34 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
       "yaxes": [
         {
           "$$hashKey": "object:7599",
-          "decimals": null,
           "format": "amp",
           "label": "Ampere",
           "logBase": 1,
-          "max": null,
           "min": "0",
           "show": true
         },
         {
           "$$hashKey": "object:7600",
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": false
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
-      "datasource": "${datasource}",
+      "datasource": {
+        "uid": "${DS_SOLARPVDB}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -2782,7 +3000,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "7.5.5",
+      "pluginVersion": "8.3.4",
       "targets": [
         {
           "alias": "PV1 Current",
@@ -2834,14 +3052,11 @@
           ]
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "PV1 Current",
       "type": "stat"
     },
     {
       "collapsed": false,
-      "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -2850,12 +3065,13 @@
       },
       "id": 20,
       "panels": [],
-      "repeat": null,
       "title": "Inverter AC Output",
       "type": "row"
     },
     {
-      "datasource": "${datasource}",
+      "datasource": {
+        "uid": "${DS_SOLARPVDB}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -2900,7 +3116,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "7.5.5",
+      "pluginVersion": "8.3.4",
       "targets": [
         {
           "alias": "Grid-connected Power",
@@ -2958,8 +3174,6 @@
           ]
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Grid-connected Power",
       "type": "stat"
     },
@@ -2970,7 +3184,9 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${datasource}",
+      "datasource": {
+        "uid": "${DS_SOLARPVDB}"
+      },
       "decimals": 3,
       "fieldConfig": {
         "defaults": {
@@ -3005,7 +3221,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.5",
+      "pluginVersion": "8.3.4",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -3094,7 +3310,6 @@
           "yaxis": "left"
         }
       ],
-      "timeFrom": null,
       "timeRegions": [
         {
           "$$hashKey": "object:597",
@@ -3108,7 +3323,6 @@
           "to": "19:30"
         }
       ],
-      "timeShift": null,
       "title": "Grid-connected Power History",
       "tooltip": {
         "shared": true,
@@ -3117,16 +3331,13 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
       "yaxes": [
         {
           "$$hashKey": "object:7599",
-          "decimals": null,
           "format": "kwatt",
           "label": "Watt",
           "logBase": 1,
@@ -3137,16 +3348,12 @@
         {
           "$$hashKey": "object:7600",
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": false
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
@@ -3157,7 +3364,9 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${datasource}",
+      "datasource": {
+        "uid": "${DS_SOLARPVDB}"
+      },
       "decimals": 2,
       "fieldConfig": {
         "defaults": {
@@ -3192,7 +3401,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.5",
+      "pluginVersion": "8.3.4",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -3252,7 +3461,6 @@
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
       "timeRegions": [
         {
           "$$hashKey": "object:597",
@@ -3266,7 +3474,6 @@
           "to": "19:30"
         }
       ],
-      "timeShift": null,
       "title": "Grid-connected Frequency History",
       "tooltip": {
         "shared": true,
@@ -3275,40 +3482,34 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
       "yaxes": [
         {
           "$$hashKey": "object:7599",
-          "decimals": null,
           "format": "rothz",
           "label": "Hertz",
           "logBase": 1,
-          "max": null,
           "min": "0",
           "show": true
         },
         {
           "$$hashKey": "object:7600",
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": false
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
-      "datasource": "${datasource}",
+      "datasource": {
+        "uid": "${DS_SOLARPVDB}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -3352,7 +3553,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "7.5.5",
+      "pluginVersion": "8.3.4",
       "targets": [
         {
           "alias": "Grid-connected Frequency",
@@ -3404,13 +3605,13 @@
           ]
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Grid-connected Frequency",
       "type": "stat"
     },
     {
-      "datasource": "${datasource}",
+      "datasource": {
+        "uid": "${DS_SOLARPVDB}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -3454,7 +3655,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "7.5.5",
+      "pluginVersion": "8.3.4",
       "targets": [
         {
           "alias": "Line1 Voltage",
@@ -3506,8 +3707,6 @@
           ]
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Line1 Voltage",
       "type": "stat"
     },
@@ -3520,7 +3719,9 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${datasource}",
+      "datasource": {
+        "uid": "${DS_SOLARPVDB}"
+      },
       "decimals": 1,
       "fieldConfig": {
         "defaults": {
@@ -3555,7 +3756,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.5",
+      "pluginVersion": "8.3.4",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -3615,7 +3816,6 @@
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
       "timeRegions": [
         {
           "$$hashKey": "object:597",
@@ -3629,7 +3829,6 @@
           "to": "19:30"
         }
       ],
-      "timeShift": null,
       "title": "Line1 Voltage History",
       "tooltip": {
         "shared": true,
@@ -3638,36 +3837,28 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
       "yaxes": [
         {
           "$$hashKey": "object:7599",
-          "decimals": null,
           "format": "volt",
           "label": "Volt",
           "logBase": 1,
-          "max": null,
           "min": "0",
           "show": true
         },
         {
           "$$hashKey": "object:7600",
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": false
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
@@ -3679,7 +3870,9 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${datasource}",
+      "datasource": {
+        "uid": "${DS_SOLARPVDB}"
+      },
       "decimals": 2,
       "fieldConfig": {
         "defaults": {
@@ -3714,7 +3907,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.5",
+      "pluginVersion": "8.3.4",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -3774,7 +3967,6 @@
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
       "timeRegions": [
         {
           "$$hashKey": "object:597",
@@ -3788,7 +3980,6 @@
           "to": "19:30"
         }
       ],
-      "timeShift": null,
       "title": "Line1 Current History",
       "tooltip": {
         "shared": true,
@@ -3797,40 +3988,34 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
       "yaxes": [
         {
           "$$hashKey": "object:7599",
-          "decimals": null,
           "format": "amp",
           "label": "Ampere",
           "logBase": 1,
-          "max": null,
           "min": "0",
           "show": true
         },
         {
           "$$hashKey": "object:7600",
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": false
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
-      "datasource": "${datasource}",
+      "datasource": {
+        "uid": "${DS_SOLARPVDB}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -3874,7 +4059,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "7.5.5",
+      "pluginVersion": "8.3.4",
       "targets": [
         {
           "alias": "Line1 Current",
@@ -3926,14 +4111,11 @@
           ]
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Line1 Current",
       "type": "stat"
     },
     {
       "collapsed": false,
-      "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -3942,12 +4124,13 @@
       },
       "id": 40,
       "panels": [],
-      "repeat": null,
       "title": "Inverter Other Status",
       "type": "row"
     },
     {
-      "datasource": "${datasource}",
+      "datasource": {
+        "uid": "${DS_SOLARPVDB}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -3991,7 +4174,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "7.5.5",
+      "pluginVersion": "8.3.4",
       "targets": [
         {
           "alias": "Bus Voltage",
@@ -4043,8 +4226,6 @@
           ]
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Bus Voltage",
       "type": "stat"
     },
@@ -4058,7 +4239,9 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${datasource}",
+      "datasource": {
+        "uid": "${DS_SOLARPVDB}"
+      },
       "decimals": 1,
       "fieldConfig": {
         "defaults": {
@@ -4093,7 +4276,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.5",
+      "pluginVersion": "8.3.4",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -4153,7 +4336,6 @@
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
       "timeRegions": [
         {
           "$$hashKey": "object:597",
@@ -4167,7 +4349,6 @@
           "to": "19:30"
         }
       ],
-      "timeShift": null,
       "title": "Bus Voltage History",
       "tooltip": {
         "shared": true,
@@ -4176,36 +4357,28 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
       "yaxes": [
         {
           "$$hashKey": "object:7599",
-          "decimals": null,
           "format": "volt",
           "label": "Volt",
           "logBase": 1,
-          "max": null,
           "min": "0",
           "show": true
         },
         {
           "$$hashKey": "object:7600",
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": false
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
@@ -4219,7 +4392,9 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${datasource}",
+      "datasource": {
+        "uid": "${DS_SOLARPVDB}"
+      },
       "decimals": 1,
       "fieldConfig": {
         "defaults": {
@@ -4254,7 +4429,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.5",
+      "pluginVersion": "8.3.4",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -4314,7 +4489,6 @@
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
       "timeRegions": [
         {
           "$$hashKey": "object:597",
@@ -4328,7 +4502,6 @@
           "to": "19:30"
         }
       ],
-      "timeShift": null,
       "title": "Device Temperature History",
       "tooltip": {
         "shared": true,
@@ -4337,40 +4510,34 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
       "yaxes": [
         {
           "$$hashKey": "object:7599",
-          "decimals": null,
           "format": "celsius",
           "label": "° Celsius",
           "logBase": 1,
-          "max": null,
           "min": "0",
           "show": true
         },
         {
           "$$hashKey": "object:7600",
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": false
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
-      "datasource": "${datasource}",
+      "datasource": {
+        "uid": "${DS_SOLARPVDB}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -4414,7 +4581,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "7.5.5",
+      "pluginVersion": "8.3.4",
       "targets": [
         {
           "alias": "Device Temperature",
@@ -4466,14 +4633,12 @@
           ]
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Device Temperature",
       "type": "stat"
     }
   ],
   "refresh": "5s",
-  "schemaVersion": 27,
+  "schemaVersion": 34,
   "style": "dark",
   "tags": [
     "peimar inverter",
@@ -4489,8 +4654,6 @@
           "text": "SolarPVDB",
           "value": "SolarPVDB"
         },
-        "description": null,
-        "error": null,
         "hide": 2,
         "includeAll": false,
         "label": "Datasource",
@@ -4505,16 +4668,12 @@
         "type": "datasource"
       },
       {
-        "allValue": null,
-        "current": {
-          "selected": false,
-          "text": "pypeimar",
-          "value": "pypeimar"
+        "current": {},
+        "datasource": {
+          "type": "influxdb",
+          "uid": "${DS_SOLARPVDB}"
         },
-        "datasource": "SolarPVDB",
         "definition": "SHOW TAG VALUES FROM alive WITH KEY=poller",
-        "description": null,
-        "error": null,
         "hide": 0,
         "includeAll": false,
         "label": "Poller",
@@ -4527,22 +4686,17 @@
         "skipUrlSync": false,
         "sort": 0,
         "tagValuesQuery": "",
-        "tags": [],
         "tagsQuery": "",
         "type": "query",
         "useTags": false
       },
       {
-        "allValue": null,
-        "current": {
-          "selected": false,
-          "text": "inverter",
-          "value": "inverter"
+        "current": {},
+        "datasource": {
+          "type": "influxdb",
+          "uid": "${DS_SOLARPVDB}"
         },
-        "datasource": "SolarPVDB",
         "definition": "SHOW TAG VALUES FROM alive WITH KEY=hostname WHERE poller =~ /$poller/",
-        "description": null,
-        "error": null,
         "hide": 0,
         "includeAll": false,
         "label": "Server",
@@ -4555,22 +4709,13 @@
         "skipUrlSync": false,
         "sort": 0,
         "tagValuesQuery": "",
-        "tags": [],
         "tagsQuery": "",
         "type": "query",
         "useTags": false
       },
       {
-        "allValue": null,
-        "current": {
-          "selected": false,
-          "text": "IT",
-          "value": "IT"
-        },
-        "datasource": null,
+        "current": {},
         "definition": "SHOW TAG VALUES FROM \"openweathermap\" WITH KEY = \"sys_country\"",
-        "description": null,
-        "error": null,
         "hide": 0,
         "includeAll": false,
         "label": "Country",
@@ -4583,22 +4728,14 @@
         "skipUrlSync": false,
         "sort": 1,
         "tagValuesQuery": "",
-        "tags": [],
         "tagsQuery": "",
         "type": "query",
-        "useTags": false
+        "useTags": false,
+        "datasource": "${DS_INFLUXDB}"
       },
       {
-        "allValue": null,
-        "current": {
-          "selected": false,
-          "text": "Voghera",
-          "value": "Voghera"
-        },
-        "datasource": null,
+        "current": {},
         "definition": "SHOW TAG VALUES FROM \"openweathermap\" WITH KEY = \"name\"",
-        "description": null,
-        "error": null,
         "hide": 0,
         "includeAll": false,
         "label": "City",
@@ -4610,16 +4747,27 @@
         "regex": "/^Voghera$/",
         "skipUrlSync": false,
         "sort": 1,
-        "tagValuesQuery": "SHOW TAG VALUES FROM \"openweathermap\" WITH KEY = \"name\" WHERE sys_country = '$tag'",
-        "tags": [
-          {
-            "selected": false,
-            "text": "IT"
-          }
-        ],
-        "tagsQuery": "SHOW TAG VALUES FROM \"openweathermap\" WITH KEY = \"sys_country\"",
         "type": "query",
-        "useTags": true
+        "datasource": "${DS_INFLUXDB}"
+      },
+      {
+        "hide": 2,
+        "name": "energy_cost",
+        "query": "${VAR_ENERGY_COST}",
+        "skipUrlSync": false,
+        "type": "constant",
+        "current": {
+          "value": "${VAR_ENERGY_COST}",
+          "text": "${VAR_ENERGY_COST}",
+          "selected": false
+        },
+        "options": [
+          {
+            "value": "${VAR_ENERGY_COST}",
+            "text": "${VAR_ENERGY_COST}",
+            "selected": false
+          }
+        ]
       }
     ]
   },
@@ -4631,5 +4779,6 @@
   "timezone": "browser",
   "title": "Solar Energy Infrastructure",
   "uid": "k5JbZFWRk",
-  "version": 413
+  "version": 488,
+  "weekStart": ""
 }

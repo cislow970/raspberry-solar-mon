@@ -1,4 +1,47 @@
 {
+  "__inputs": [
+    {
+      "name": "DS_SOLARPVDB",
+      "label": "SolarPVDB",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "influxdb",
+      "pluginName": "InfluxDB"
+    }
+  ],
+  "__elements": [],
+  "__requires": [
+    {
+      "type": "panel",
+      "id": "bargauge",
+      "name": "Bar gauge",
+      "version": ""
+    },
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "8.3.4"
+    },
+    {
+      "type": "datasource",
+      "id": "influxdb",
+      "name": "InfluxDB",
+      "version": "1.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "larona-epict-panel",
+      "name": "ePict Panel",
+      "version": "2.0.5"
+    },
+    {
+      "type": "panel",
+      "id": "timeseries",
+      "name": "Time series",
+      "version": ""
+    }
+  ],
   "annotations": {
     "list": [
       {
@@ -8,25 +51,30 @@
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
         "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
         "type": "dashboard"
       }
     ]
   },
   "description": "Power home's consumed vs Photovoltaic Production",
   "editable": true,
-  "gnetId": null,
+  "fiscalYearStartMonth": 0,
   "graphTooltip": 1,
-  "id": 11,
-  "iteration": 1642765666222,
+  "id": null,
+  "iteration": 1645519015964,
   "links": [],
+  "liveNow": false,
   "panels": [
     {
-      "datasource": "${datasource}",
-      "description": "Blue: Home's Power Consumed<br/>\nOrange: Solar Power Produced<br/>\nGreen/Red: Energy balance",
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
+      "datasource": {
+        "uid": "${DS_SOLARPVDB}"
       },
+      "description": "Blue: Home's Power Consumed<br/>\nOrange: Solar Power Produced<br/>\nGreen/Red: Energy balance",
       "gridPos": {
         "h": 8,
         "w": 12,
@@ -35,6 +83,7 @@
       },
       "id": 7,
       "options": {
+        "autoScale": true,
         "bgURL": "http://192.168.1.5:3000/public/img/how_solar_power_works.png",
         "boxes": [
           {
@@ -56,6 +105,7 @@
             "orbSize": 10,
             "prefix": "",
             "prefixSize": 10,
+            "selected": false,
             "serie": "Home's Power Consumed",
             "suffix": " W",
             "suffixSize": "14",
@@ -84,6 +134,7 @@
             "orbSize": 10,
             "prefix": "",
             "prefixSize": 10,
+            "selected": false,
             "serie": "Solar Power Produced",
             "suffix": " W",
             "suffixSize": "14",
@@ -112,6 +163,7 @@
             "orbSize": 10,
             "prefix": "",
             "prefixSize": 10,
+            "selected": false,
             "serie": "Energy balance",
             "suffix": " W",
             "suffixSize": "14",
@@ -121,10 +173,9 @@
             "xpos": "375",
             "ypos": "135"
           }
-        ],
-        "boxesDefinitions": null
+        ]
       },
-      "pluginVersion": "2.0.3",
+      "pluginVersion": "2.0.5",
       "targets": [
         {
           "alias": "Home's Power Consumed",
@@ -228,8 +279,6 @@
           ]
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Solar System Diagram",
       "transformations": [
         {
@@ -252,7 +301,9 @@
       "type": "larona-epict-panel"
     },
     {
-      "datasource": "${datasource}",
+      "datasource": {
+        "uid": "${DS_SOLARPVDB}"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -337,7 +388,7 @@
         "showUnfilled": true,
         "text": {}
       },
-      "pluginVersion": "7.5.5",
+      "pluginVersion": "8.3.4",
       "targets": [
         {
           "alias": "Home's Power Consumed",
@@ -443,7 +494,9 @@
       "type": "bargauge"
     },
     {
-      "datasource": "${datasource}",
+      "datasource": {
+        "uid": "${DS_SOLARPVDB}"
+      },
       "description": "Power balance = (Solar Power Produced - Home's Power Consumed)<br/><br/>\nPositive value = excess power transferred to the grid<br/>\nNegative value = missing power taken from the grid<br/>",
       "fieldConfig": {
         "defaults": {
@@ -460,7 +513,8 @@
             "hideFrom": {
               "graph": false,
               "legend": false,
-              "tooltip": false
+              "tooltip": false,
+              "viz": false
             },
             "lineInterpolation": "linear",
             "lineStyle": {
@@ -472,7 +526,14 @@
               "type": "linear"
             },
             "showPoints": "never",
-            "spanNulls": true
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
           },
           "mappings": [],
           "thresholds": {
@@ -640,7 +701,7 @@
           "displayMode": "table",
           "placement": "right"
         },
-        "tooltipOptions": {
+        "tooltip": {
           "mode": "multi"
         }
       },
@@ -747,8 +808,6 @@
           ]
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Current Power",
       "transformations": [
         {
@@ -773,7 +832,7 @@
     }
   ],
   "refresh": "5s",
-  "schemaVersion": 27,
+  "schemaVersion": 34,
   "style": "dark",
   "tags": [
     "influxdb",
@@ -789,8 +848,6 @@
           "text": "SolarPVDB",
           "value": "SolarPVDB"
         },
-        "description": null,
-        "error": null,
         "hide": 0,
         "includeAll": false,
         "label": "Datasource",
@@ -813,5 +870,6 @@
   "timezone": "",
   "title": "Solar Energy Analysis (current metrics)",
   "uid": "OuxkfcRRz",
-  "version": 931
+  "version": 933,
+  "weekStart": ""
 }

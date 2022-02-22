@@ -54,7 +54,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 1,
   "id": null,
-  "iteration": 1645518981809,
+  "iteration": 1645547950121,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -342,6 +342,7 @@
     },
     {
       "datasource": {
+        "type": "influxdb",
         "uid": "${DS_SOLARPVDB}"
       },
       "description": "",
@@ -498,7 +499,7 @@
               {
                 "id": "color",
                 "value": {
-                  "fixedColor": "rgb(0, 255, 37)",
+                  "fixedColor": "#21d1d1",
                   "mode": "fixed"
                 }
               },
@@ -516,7 +517,7 @@
               },
               {
                 "id": "custom.lineWidth",
-                "value": 2
+                "value": 1
               },
               {
                 "id": "custom.fillOpacity",
@@ -528,7 +529,7 @@
               },
               {
                 "id": "custom.showPoints",
-                "value": "auto"
+                "value": "never"
               }
             ]
           }
@@ -562,6 +563,10 @@
       "targets": [
         {
           "alias": "Home's Energy Consumed",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_SOLARPVDB}"
+          },
           "groupBy": [
             {
               "params": [
@@ -596,7 +601,7 @@
               },
               {
                 "params": [
-                  " * 0.166667"
+                  "* 0.166667"
                 ],
                 "type": "math"
               }
@@ -618,6 +623,10 @@
         },
         {
           "alias": "Solar Energy Produced",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_SOLARPVDB}"
+          },
           "groupBy": [
             {
               "params": [
@@ -652,7 +661,7 @@
               },
               {
                 "params": [
-                  " * 0.166667"
+                  "* 0.166667"
                 ],
                 "type": "math"
               }
@@ -759,7 +768,7 @@
               {
                 "id": "color",
                 "value": {
-                  "fixedColor": "rgb(33, 209, 209)",
+                  "fixedColor": "#21d1d1",
                   "mode": "fixed"
                 }
               }
@@ -1581,6 +1590,7 @@
           },
           "mappings": [],
           "max": 100,
+          "min": 0,
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -1879,6 +1889,7 @@
           },
           "mappings": [],
           "max": 100,
+          "min": 0,
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -2141,7 +2152,7 @@
       "type": "timeseries"
     }
   ],
-  "refresh": "15m",
+  "refresh": "",
   "schemaVersion": 34,
   "style": "dark",
   "tags": [
@@ -2180,6 +2191,6 @@
   "timezone": "",
   "title": "Solar Energy Analysis (average metrics)",
   "uid": "zsJZJDRgz",
-  "version": 86,
+  "version": 103,
   "weekStart": ""
 }

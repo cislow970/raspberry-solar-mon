@@ -118,11 +118,11 @@ For the management of daemons:
 * Restart Grafana service: ``sudo systemctl restart grafana-server.service``
 * Create data sources to access to databases defined in "InfluxDB configuration":
 	
-	![Datasources](https://github.com/cislow970/raspberry-solar-mon/blob/main/images/data-sources.jpg)
-	![Datasource-Telegraf1](https://github.com/cislow970/raspberry-solar-mon/blob/main/images/data-source-telegraf1.jpg)
-	![Datasource-Telegraf2](https://github.com/cislow970/raspberry-solar-mon/blob/main/images/data-source-telegraf2.jpg)
-	![Datasource-Peimar1](https://github.com/cislow970/raspberry-solar-mon/blob/main/images/data-source-peimar1.jpg)
-	![Datasource-Peimar2](https://github.com/cislow970/raspberry-solar-mon/blob/main/images/data-source-peimar2.jpg)
+	![Datasources](https://github.com/cislow970/raspberry-solar-mon/blob/main/images/data-sources.png)
+	![Datasource-Telegraf1](https://github.com/cislow970/raspberry-solar-mon/blob/main/images/data-source-telegraf1.png)
+	![Datasource-Telegraf2](https://github.com/cislow970/raspberry-solar-mon/blob/main/images/data-source-telegraf2.png)
+	![Datasource-Peimar1](https://github.com/cislow970/raspberry-solar-mon/blob/main/images/data-source-peimar1.png)
+	![Datasource-Peimar2](https://github.com/cislow970/raspberry-solar-mon/blob/main/images/data-source-peimar2.png)
 	
 * Import all dashboards from repository folder **grafana/dashboards**.
 

@@ -87,7 +87,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 1,
   "id": null,
-  "iteration": 1645517821001,
+  "iteration": 1645606207495,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -4772,13 +4772,13 @@
     ]
   },
   "time": {
-    "from": "now-24h",
+    "from": "now/d",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "browser",
   "title": "Solar Energy Infrastructure",
   "uid": "k5JbZFWRk",
-  "version": 488,
+  "version": 490,
   "weekStart": ""
 }

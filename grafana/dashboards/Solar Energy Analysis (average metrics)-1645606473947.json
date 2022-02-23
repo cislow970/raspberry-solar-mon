@@ -54,7 +54,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 1,
   "id": null,
-  "iteration": 1645548844102,
+  "iteration": 1645606468241,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -2186,13 +2186,13 @@
     ]
   },
   "time": {
-    "from": "now-24h",
+    "from": "now/d",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "Solar Energy Analysis (average metrics)",
   "uid": "zsJZJDRgz",
-  "version": 106,
+  "version": 107,
   "weekStart": ""
 }

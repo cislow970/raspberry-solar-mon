@@ -60,7 +60,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 1,
   "id": null,
-  "iteration": 1645518945299,
+  "iteration": 1645606429232,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -1540,13 +1540,13 @@
     ]
   },
   "time": {
-    "from": "now-6h",
+    "from": "now/d",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "Home Smart Energy Monitor",
   "uid": "_bF8WARgk",
-  "version": 83,
+  "version": 84,
   "weekStart": ""
 }

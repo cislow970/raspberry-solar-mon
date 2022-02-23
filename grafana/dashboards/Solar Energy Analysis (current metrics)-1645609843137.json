@@ -66,7 +66,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 1,
   "id": null,
-  "iteration": 1645519015964,
+  "iteration": 1645609636893,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -557,7 +557,7 @@
               {
                 "id": "color",
                 "value": {
-                  "fixedColor": "semi-dark-orange",
+                  "fixedColor": "#FF780A",
                   "mode": "fixed"
                 }
               },
@@ -699,7 +699,7 @@
             "lastNotNull"
           ],
           "displayMode": "table",
-          "placement": "right"
+          "placement": "bottom"
         },
         "tooltip": {
           "mode": "multi"
@@ -829,6 +829,201 @@
         }
       ],
       "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "${DS_SOLARPVDB}"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "Wh",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "graph": false,
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "smooth",
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "lineWidth": 1,
+            "pointSize": 4,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "watth"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Solar Energy Produced"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#f2cc0c",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.fillOpacity",
+                "value": 10
+              },
+              {
+                "id": "custom.drawStyle",
+                "value": "bars"
+              },
+              {
+                "id": "custom.lineWidth",
+                "value": 1
+              },
+              {
+                "id": "custom.showPoints",
+                "value": "auto"
+              },
+              {
+                "id": "custom.barAlignment",
+                "value": -1
+              },
+              {
+                "id": "custom.pointSize",
+                "value": 4
+              },
+              {
+                "id": "decimals",
+                "value": 2
+              },
+              {
+                "id": "custom.gradientMode",
+                "value": "hue"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 24,
+        "x": 0,
+        "y": 22
+      },
+      "id": 15,
+      "options": {
+        "graph": {},
+        "legend": {
+          "calcs": [
+            "min",
+            "max",
+            "mean",
+            "lastNotNull",
+            "sum"
+          ],
+          "displayMode": "table",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi"
+        }
+      },
+      "pluginVersion": "7.5.5",
+      "targets": [
+        {
+          "alias": "Solar Energy Produced",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_SOLARPVDB}"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "1h"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "measurement": "device_status",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "today_generated"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mode"
+              },
+              {
+                "params": [],
+                "type": "difference"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "poller",
+              "operator": "=",
+              "value": "pypeimar"
+            },
+            {
+              "condition": "AND",
+              "key": "hostname",
+              "operator": "=",
+              "value": "inverter"
+            }
+          ]
+        }
+      ],
+      "title": "Watt-hour produced for every hour",
+      "transformations": [],
+      "type": "timeseries"
     }
   ],
   "refresh": "5s",
@@ -863,13 +1058,13 @@
     ]
   },
   "time": {
-    "from": "now-12h",
+    "from": "now/d",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "Solar Energy Analysis (current metrics)",
   "uid": "OuxkfcRRz",
-  "version": 933,
+  "version": 944,
   "weekStart": ""
 }

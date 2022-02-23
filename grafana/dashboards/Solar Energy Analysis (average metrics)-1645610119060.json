@@ -54,7 +54,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 1,
   "id": null,
-  "iteration": 1645606468241,
+  "iteration": 1645610052597,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -407,7 +407,7 @@
               {
                 "id": "color",
                 "value": {
-                  "fixedColor": "semi-dark-yellow",
+                  "fixedColor": "#F2CC0C",
                   "mode": "fixed"
                 }
               },
@@ -779,7 +779,7 @@
         ]
       },
       "gridPos": {
-        "h": 8,
+        "h": 9,
         "w": 24,
         "x": 0,
         "y": 26
@@ -1070,7 +1070,7 @@
         "h": 9,
         "w": 24,
         "x": 0,
-        "y": 34
+        "y": 35
       },
       "id": 12,
       "options": {
@@ -1372,7 +1372,7 @@
         "h": 9,
         "w": 24,
         "x": 0,
-        "y": 43
+        "y": 44
       },
       "id": 13,
       "options": {
@@ -1626,7 +1626,7 @@
         "h": 9,
         "w": 24,
         "x": 0,
-        "y": 52
+        "y": 53
       },
       "id": 11,
       "options": {
@@ -1925,7 +1925,7 @@
         "h": 9,
         "w": 24,
         "x": 0,
-        "y": 61
+        "y": 62
       },
       "id": 14,
       "options": {
@@ -2193,6 +2193,6 @@
   "timezone": "",
   "title": "Solar Energy Analysis (average metrics)",
   "uid": "zsJZJDRgz",
-  "version": 107,
+  "version": 124,
   "weekStart": ""
 }

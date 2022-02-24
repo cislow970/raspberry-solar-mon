@@ -66,7 +66,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 1,
   "id": null,
-  "iteration": 1645709231129,
+  "iteration": 1645710555928,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -918,7 +918,7 @@
               },
               {
                 "id": "custom.barAlignment",
-                "value": -1
+                "value": 0
               },
               {
                 "id": "custom.pointSize",
@@ -1065,6 +1065,6 @@
   "timezone": "",
   "title": "Solar Energy Analysis (current metrics)",
   "uid": "OuxkfcRRz",
-  "version": 947,
+  "version": 958,
   "weekStart": ""
 }

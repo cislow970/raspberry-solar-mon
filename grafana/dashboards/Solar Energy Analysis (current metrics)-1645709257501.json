@@ -66,7 +66,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 1,
   "id": null,
-  "iteration": 1645610126841,
+  "iteration": 1645709231129,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -842,7 +842,7 @@
             "mode": "palette-classic"
           },
           "custom": {
-            "axisLabel": "Wh",
+            "axisLabel": "kWh",
             "axisPlacement": "auto",
             "barAlignment": 0,
             "drawStyle": "line",
@@ -884,7 +884,7 @@
               }
             ]
           },
-          "unit": "watth"
+          "unit": "kwatth"
         },
         "overrides": [
           {
@@ -1065,6 +1065,6 @@
   "timezone": "",
   "title": "Solar Energy Analysis (current metrics)",
   "uid": "OuxkfcRRz",
-  "version": 944,
+  "version": 947,
   "weekStart": ""
 }

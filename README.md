@@ -10,7 +10,7 @@ Home solar infrastructure (with ***Peimar Inverter***) monitoring based on Raspb
 
 * [Shelly EM + 120A Clamp](https://www.shellyitalia.com/shelly-em/?gclid=Cj0KCQjw5oiMBhDtARIsAJi0qk1ZhzE05fYDJvK6hMz7YsG91ZkCaSz4PSUUMzi_Cpwu_yXUYV1bfTcaAoiFEALw_wcB) to measure the electrical consumption of my house
 * [Raspberry Pi 3 B+](https://it.rs-online.com/web/p/raspberry-pi/1373331) with Raspbian OS
-* Grafana 7.5.5
+* Grafana 8.3.4
 * InfluxDB 1.8.5
 * Telegraf 1.18.2
 * Custom python multithread collector for get metrics from _Peimar Inverter_ and _Shelly EM_ (compliant with Python 3)

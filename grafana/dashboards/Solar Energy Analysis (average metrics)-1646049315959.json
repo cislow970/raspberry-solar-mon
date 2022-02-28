@@ -54,7 +54,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 1,
   "id": null,
-  "iteration": 1645610052597,
+  "iteration": 1646047366011,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -947,7 +947,7 @@
       "datasource": {
         "uid": "${DS_SOLARPVDB}"
       },
-      "description": "When energy surplus is greater than zero then \"Energy Self-consumption = Home's Energy Consumed\"",
+      "description": "When energy surplus is greater than zero then \"Energy Self-consumption = Home's Energy Consumed\".",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1253,7 +1253,7 @@
       "datasource": {
         "uid": "${DS_SOLARPVDB}"
       },
-      "description": "When energy missing is lower than zero then \"Energy Self-consumption = Solar Energy Produced\"",
+      "description": "When energy missing is present, if solar energy produced is greater than zero, then \"Energy Self-consumption = Solar Energy Produced\".",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1760,7 +1760,7 @@
           ]
         }
       ],
-      "title": "Energy surplus greater than zero -> Average percentage self-consumption for every 10 minutes",
+      "title": "Average percentage self-consumption for every 10 minutes when Energy Surplus is different than zero",
       "transformations": [
         {
           "id": "calculateField",
@@ -2059,7 +2059,7 @@
           ]
         }
       ],
-      "title": "Energy missing greater than zero -> Average percentage self-consumption every 10 minutes",
+      "title": "Average percentage self-consumption every 10 minutes when Energy Missing and Solar Energy Produced are different than zero",
       "transformations": [
         {
           "id": "filterByValue",
@@ -2154,7 +2154,7 @@
       "type": "timeseries"
     }
   ],
-  "refresh": "",
+  "refresh": "5m",
   "schemaVersion": 34,
   "style": "dark",
   "tags": [
@@ -2193,6 +2193,6 @@
   "timezone": "",
   "title": "Solar Energy Analysis (average metrics)",
   "uid": "zsJZJDRgz",
-  "version": 124,
+  "version": 139,
   "weekStart": ""
 }

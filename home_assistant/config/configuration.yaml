@@ -1,0 +1,80 @@
+influxdb:
+  host: 192.168.1.54
+  ssl: false
+  verify_ssl: false
+  database: peimar
+  username: peimar
+  password: p31m4r
+  exclude:
+    entity_globs: "*"
+
+sensor:
+  - platform: influxdb
+    host: 192.168.1.54
+    ssl: false
+    verify_ssl: false
+    database: peimar
+    username: peimar
+    password: p31m4r
+    queries:
+      - name: Solar Power
+        database: peimar
+        measurement: '"peimar"."autogen"."device_status"'
+        field: ac_out_grid_power
+        where: 'time >= now() - 1d'
+        unit_of_measurement: W
+        group_function: last
+      - name: Solar Total Energy
+        database: peimar
+        measurement: '"peimar"."autogen"."device_status"'
+        field: tot_generated
+        where: '"tot_generated" > 0 AND time >= now() - 30d'
+        unit_of_measurement: kWh
+        group_function: last
+      - name: Solar Total Running
+        database: peimar
+        measurement: '"peimar"."autogen"."device_status"'
+        field: tot_running_time
+        where: '"tot_running_time" > 0 AND time >= now() - 30d'
+        unit_of_measurement: Hours
+        group_function: last
+      - name: Solar Energy
+        database: peimar
+        measurement: '"peimar"."autogen"."device_status"'
+        field: today_generated
+        where: '"today_generated" >= 0 AND time >= now() - 1d'
+        unit_of_measurement: kWh
+        group_function: last
+      - name: Solar Running
+        database: peimar
+        measurement: '"peimar"."autogen"."device_status"'
+        field: today_running_time
+        where: '"today_running_time" >= 0 AND time >= now() - 1d'
+        unit_of_measurement: Hours
+        group_function: last
+
+homeassistant:
+  customize_glob:
+    sensor.solar_power:
+      friendly_name: Peimar Power
+      device_class: power
+      state_class: measurement
+      icon: mdi:solar-power
+    sensor.solar_energy:
+      friendly_name: Peimar Energy
+      last_reset: '1970-01-01T00:00:00+00:00'
+      device_class: energy
+      state_class: total_increasing
+      type: output
+    sensor.solar_running:
+      friendly_name: Peimar Running
+      icon: mdi:clock-outline
+    sensor.solar_total_energy:
+      friendly_name: Peimar Total Energy
+      last_reset: '1970-01-01T00:00:00+00:00'
+      device_class: energy
+      state_class: total_increasing
+      type: output
+    sensor.solar_total_running:
+      friendly_name: Peimar Total Running
+      icon: mdi:clock-outline

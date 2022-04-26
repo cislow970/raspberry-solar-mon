@@ -128,5 +128,5 @@ For the management of daemons:
 
 ### Appendix
 
-To integrate the Peimar inverter data collector into Home Assistant, using InfluxDB and Docker to build the container dedicated to the collector, browse ["home_assistant" folder](https://github.com/cislow970/raspberry-solar-mon/tree/main/home_assistant).
+To integrate the Peimar Inverter data collector into Home Assistant, using InfluxDB and Docker to build the container dedicated to the collector, browse ["home_assistant" folder](https://github.com/cislow970/raspberry-solar-mon/tree/main/home_assistant).
 

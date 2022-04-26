@@ -126,3 +126,7 @@ For the management of daemons:
 	
 * Import all dashboards from repository folder **grafana/dashboards**.
 
+### Appendix
+
+To integrate the Peimar inverter data collector into Home Assistant, using InfluxDB and Docker to build the container dedicated to the collector, browse ["home_assistant" folder](https://github.com/cislow970/raspberry-solar-mon/tree/main/home_assistant).
+

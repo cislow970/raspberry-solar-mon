@@ -4,7 +4,7 @@
 
 You need to enable Samba Service in the Add-ons section to upload files of Peimar Inverter Collector. To install add-ons, navigate to the Configuration > Add-ons & Backups panel in your Home Assistant frontend.
 
-Remember to unblock access to shares from your LAN's IP addresses (allow_host in Samba Configuration). You must also configure credentials for authentication to access to share.
+Remember to unlock access to shares from your LAN's IP addresses (allow_host in Samba Configuration). You must also configure credentials for authentication to access to share.
 At end of service configuration you need to restart Samba.
 
 ![Samba Service](https://github.com/cislow970/raspberry-solar-mon/blob/main/home_assistant/images/ha01.png)
@@ -19,14 +19,11 @@ You need to enable the File Editor in the Add-ons section to edit configuration 
 
 You need to enable the InfluxDB in the Add-ons section to create time series database to store metrics of Peimar Inverter. To install add-ons, navigate to the Configuration > Add-ons & Backups panel in your Home Assistant frontend.
 
-After, you must create database "peimar" and user for connect to database.
+After, you must create database "peimar" and user for connect to database (username = peimar / password = p31m4r).
 
-![Create database]()
+![Create database](https://github.com/cislow970/raspberry-solar-mon/blob/main/home_assistant/images/ha05.png)
 
-![Configuration database user]()
-
-
-
+![Configuration database user](https://github.com/cislow970/raspberry-solar-mon/blob/main/home_assistant/images/ha06.png)
 
 ### Build Docker container for Peimar Inverter Collector
 
@@ -37,7 +34,8 @@ You must connect to Microsoft Share of Home Assistant (```\\<IP_YOUR_HA_INSTALLA
 
 ### Add configuration for custom sensors
 
-Edit Home Assistant configuration file "configuration.yaml" by ***File Editor*** and add at end of file the following configuration:
+Edit Home Assistant configuration file "configuration.yaml" by ***File Editor*** and add at end of file the following [configuration](https://github.com/cislow970/raspberry-solar-mon/blob/main/home_assistant/config/configuration.yaml):
+
 
 ```
 influxdb:

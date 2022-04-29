@@ -19,20 +19,23 @@ You need to enable the File Editor in the Add-ons section to edit configuration 
 
 You need to enable the InfluxDB in the Add-ons section to create time series database to store metrics of Peimar Inverter. To install add-ons, navigate to the Configuration > Add-ons & Backups panel in your Home Assistant frontend.
 
-After, you must create database "peimar" and user for connect to database (username = peimar / password = p31m4r).
+After, you must create database "peimar" with retention 3650 days and configure user for connect to database (username = peimar / password = p31m4r).
 
 ![Create database](https://github.com/cislow970/raspberry-solar-mon/blob/main/home_assistant/images/ha05.png)
 
-![Configuration database user](https://github.com/cislow970/raspberry-solar-mon/blob/main/home_assistant/images/ha06.png)
+![Configure database user](https://github.com/cislow970/raspberry-solar-mon/blob/main/home_assistant/images/ha06.png)
 
 ### Build Docker container for Peimar Inverter Collector
 
 You must connect to Microsoft Share of Home Assistant (```\\<IP_YOUR_HA_INSTALLATION>```) and copy to folder "addons" (if not exists then create it before) all folder ["peimar_collector"](https://github.com/cislow970/raspberry-solar-mon/blob/main/home_assistant/addons/peimar_collector).
 
-...
-...
-...
 
+
+![Discovery custom addons](https://github.com/cislow970/raspberry-solar-mon/blob/main/home_assistant/images/ha07.png)
+
+![Select custom addons](https://github.com/cislow970/raspberry-solar-mon/blob/main/home_assistant/images/ha08.png)
+
+![Install custom addons](https://github.com/cislow970/raspberry-solar-mon/blob/main/home_assistant/images/ha09.png)
 
 
 ### Add configuration for custom sensors
@@ -127,11 +130,15 @@ homeassistant:
 
 After modify of configuration you need to restart Home Assistant services.
 
+### Verify inverter collector
+
+Verify that the inverter collector is healty and that it stores data in the InfluxDB database. If everything is fine, you will see the value of the metrics in InfluxDB Explore.
+
+![Verify collector](https://github.com/cislow970/raspberry-solar-mon/blob/main/home_assistant/images/ha10.png)
+
 ### Create dashboard to show custom sensors
 
-Mapping to Energy dashboard the custom sensors for Peimar Inverter metrics.
-
-Result:
+Result to mapping the custom sensors to Energy dashboard for Peimar Inverter metrics.
 
 ![Energy dashboard](https://github.com/cislow970/raspberry-solar-mon/blob/main/home_assistant/images/ha12.png)
 

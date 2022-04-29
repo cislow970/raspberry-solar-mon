@@ -125,10 +125,15 @@ homeassistant:
 
 ### Create dashboard to show custom sensors
 
-Add to Energy dashboard the custom sensors for Peimar Inverter metrics.
+Map to Energy dashboard the custom sensors for Peimar Inverter metrics.
+
+Result:
+
+![Energy dashboard](https://github.com/cislow970/raspberry-solar-mon/blob/main/home_assistant/images/ha12.png)
+
+Create a custom dashboard, for example "Solar Energy" to show custom sensors:
 
 Example:
 
-![Energy dashboard 1](https://github.com/cislow970/raspberry-solar-mon/blob/main/home_assistant/images/ha11.png)
+![Custom dashboard](https://github.com/cislow970/raspberry-solar-mon/blob/main/home_assistant/images/ha11.png)
 
-![Energy dashboard 2](https://github.com/cislow970/raspberry-solar-mon/blob/main/home_assistant/images/ha12.png)

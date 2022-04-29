@@ -2,7 +2,7 @@
 
 ### Enable Samba
 
-You need to enable ***Samba Share*** in the Add-ons section to upload files of Peimar Inverter Collector. To install add-ons, navigate to the Configuration > Add-ons & Backups panel in your Home Assistant frontend.
+You need to enable ***Samba Share*** in the Add-ons section to upload files of Peimar Inverter Collector. To install add-ons, navigate to the **Configuration > Add-ons & Backups** panel in your Home Assistant frontend.
 
 Remember to unlock access to shares from your LAN's IP addresses (allow_host in Samba configuration). You must also configure credentials for authentication to access to share.
 At end of service configuration you need to restart Samba.
@@ -13,7 +13,7 @@ At end of service configuration you need to restart Samba.
 
 ### Enable File Editor
 
-You need to enable the ***File Editor*** in the Add-ons section to edit configuration files. To install add-ons, navigate to the Configuration > Add-ons & Backups panel in your Home Assistant frontend.
+You need to enable the ***File Editor*** in the Add-ons section to edit configuration files. To install add-ons, navigate to the **Configuration > Add-ons & Backups** panel in your Home Assistant frontend.
 
 ### Enable InfluxDB and configure database
 

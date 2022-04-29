@@ -29,6 +29,9 @@ After, you must create database "peimar" and user for connect to database (usern
 
 You must connect to Microsoft Share of Home Assistant (```\\<IP_YOUR_HA_INSTALLATION>```) and copy to folder "addons" (if not exists then create it before) all folder ["peimar_collector"](https://github.com/cislow970/raspberry-solar-mon/blob/main/home_assistant/addons/peimar_collector).
 
+...
+...
+...
 
 
 
@@ -122,16 +125,17 @@ homeassistant:
 
 **Warning: you need to change value of key "host" with ip address assigned to Home Assistant in your installation.**
 
+After modify of configuration you need to restart Home Assistant services.
 
 ### Create dashboard to show custom sensors
 
-Map to Energy dashboard the custom sensors for Peimar Inverter metrics.
+Mapping to Energy dashboard the custom sensors for Peimar Inverter metrics.
 
 Result:
 
 ![Energy dashboard](https://github.com/cislow970/raspberry-solar-mon/blob/main/home_assistant/images/ha12.png)
 
-Create a custom dashboard, for example "Solar Energy" to show custom sensors:
+Create a custom dashboard, for example "SOLAR ENERGY" to show custom sensors:
 
 Example:
 

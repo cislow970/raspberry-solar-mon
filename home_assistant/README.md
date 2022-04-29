@@ -25,7 +25,7 @@ After, you must create database "peimar" and user for connect to database.
 
 ### Build Docker container for Peimar Inverter Collector
 
-You must connect to Microsoft Share of Home Assistant (```\\<IP_YOUR_HA_INSTALLATION>```) and copy to folder "addons" (if not exists then create it before) all folder !["peimar_collector"](https://github.com/cislow970/raspberry-solar-mon/tree/main/home_assistant/addons/peimar_collector).
+You must connect to Microsoft Share of Home Assistant (```\\<IP_YOUR_HA_INSTALLATION>```) and copy to folder "addons" (if not exists then create it before) all folder ["peimar_collector"](https://github.com/cislow970/raspberry-solar-mon/tree/main/home_assistant/addons/peimar_collector).
 
 
 

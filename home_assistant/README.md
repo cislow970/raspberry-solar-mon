@@ -19,7 +19,7 @@ You need to enable the File Editor in the Add-ons section to edit configuration 
 
 You need to enable the InfluxDB in the Add-ons section to create time series database to store metrics of Peimar Inverter. To install add-ons, navigate to the Configuration > Add-ons & Backups panel in your Home Assistant frontend.
 
-After, you must create database "peimar" with retention 3650 days and configure user for connect to database (username = peimar / password = p31m4r).
+After, you must create database "peimar" with retention policy equal to 3650 days and configure user for connect to database (username = peimar / password = p31m4r).
 
 ![Create database](https://github.com/cislow970/raspberry-solar-mon/blob/main/home_assistant/images/ha05.png)
 

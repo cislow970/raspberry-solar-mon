@@ -29,7 +29,7 @@ After, you must create database "peimar" with retention policy equal to 3650 day
 
 1. You must connect to Microsoft Share of Home Assistant ```\\<IP_YOUR_HA_INSTALLATION>``` (login username = homeassistant / password = homeassistant) and copy to folder "addons" (if not exists then create it before) all folder ["peimar_collector"](https://github.com/cislow970/raspberry-solar-mon/blob/main/home_assistant/addons/peimar_collector).
 
-![Addons share](https://github.com/cislow970/raspberry-solar-mon/blob/main/home_assistant/images/ha03.png)
+![Addons share](https://github.com/cislow970/raspberry-solar-mon/blob/main/home_assistant/images/ha03.png)<br/>
 
 ![Copy collector to share](https://github.com/cislow970/raspberry-solar-mon/blob/main/home_assistant/images/ha04.png)
 

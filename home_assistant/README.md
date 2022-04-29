@@ -4,7 +4,12 @@
 
 You need to enable Samba Service in the Add-ons section to upload files of Peimar Inverter Collector. To install add-ons, navigate to the Configuration > Add-ons & Backups panel in your Home Assistant frontend.
 
+Remember to unblock access to shares from your LAN's IP addresses (allow_host in Samba Configuration). You must also configure credentials for authentication to access to share.
+At end of service configuration you need to restart Samba.
+
 ![Samba Service](https://github.com/cislow970/raspberry-solar-mon/blob/main/home_assistant/images/ha01.png)
+
+![Samba Service](https://github.com/cislow970/raspberry-solar-mon/blob/main/home_assistant/images/ha02.png)
 
 ### Enable File Editor
 
